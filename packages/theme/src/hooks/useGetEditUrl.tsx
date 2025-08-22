@@ -34,6 +34,7 @@ export const useGetEditUrl = (
         params: { id: recordItemId, resource: _resource },
         queryOptions: {
             enabled: accessControlEnabled,
+            queryKey: ["useCan", _resource?.name, "edit", id],
         },
     });
 

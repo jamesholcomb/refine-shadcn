@@ -39,7 +39,7 @@ export const useDeleteHelper = (
 
     const { mutationMode } = useMutationMode();
 
-    const { mutate, isLoading } = useDelete();
+    const { mutate, isPending } = useDelete();
 
     const { data } = useCan({
         resource: _resource?.name,
@@ -47,6 +47,7 @@ export const useDeleteHelper = (
         params: { id: recordItemId ?? id, resource: _resource },
         queryOptions: {
             enabled: accessControlEnabled,
+            queryKey: ["useCan", _resource?.name, "delete", id],
         },
     });
 
@@ -85,6 +86,6 @@ export const useDeleteHelper = (
         can: !Boolean(accessControlEnabled && hideIfUnauthorized && !data?.can),
         reason: reason(),
         mutate: onDeleteMutate,
-        isLoading,
+        isLoading: isPending,
     };
 };

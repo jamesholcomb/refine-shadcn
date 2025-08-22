@@ -53,5 +53,84 @@
       "of": "of",
       "rows": "rows"
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Login to your account",
+      "description": "Enter your email and password below to login to your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "emailPlaceholder": "m@example.com",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "success": "Login successful",
+      "successDescription": "Welcome back, {{name}}!",
+      "error": "Login failed"
+    },
+    "register": {
+      "title": "Create an account",
+      "description": "Enter your information below to create your account",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create account",
+      "namePlaceholder": "John Doe",
+      "emailPlaceholder": "m@example.com",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "passwordMismatch": "Passwords do not match",
+      "termsLabel": "I agree to the {{terms}} and {{privacy}}",
+      "termsLink": "Terms of Service",
+      "privacyLink": "Privacy Policy",
+      "success": "Registration successful",
+      "successDescription": "Welcome, {{name}}!",
+      "error": "Registration failed"
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "description": "Enter your email address and we'll send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send reset link",
+      "backToLogin": "Back to login",
+      "checkEmailTitle": "Check your email",
+      "checkEmailDescription": "We've sent a password reset link to {{email}}",
+      "checkEmailNote": "Didn't receive the email? Check your spam folder or try again.",
+      "success": "Reset email sent",
+      "successDescription": "Please check your email for password reset instructions",
+      "error": "Failed to send reset email"
+    },
+    "updatePassword": {
+      "success": "Password updated",
+      "successDescription": "Your password has been updated successfully",
+      "error": "Failed to update password",
+      "passwordMismatch": "Passwords do not match"
+    },
+    "logout": {
+      "success": "Logout successful",
+      "successDescription": "You have been logged out successfully"
+    },
+    "errors": {
+      "unauthorized": "Authentication failed",
+      "checkFailed": "Check failed"
+    },
+    "form": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordMaxLength": "Password must not exceed 100 characters",
+      "passwordStrength": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+      "passwordSame": "New password must be different from current password",
+      "confirmPasswordRequired": "Please confirm your password",
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least 2 characters",
+      "nameMaxLength": "Name must not exceed 50 characters",
+      "termsRequired": "You must accept the terms and conditions",
+      "tokenRequired": "Reset token is required",
+      "currentPasswordRequired": "Current password is required"
+    }
   }
 }

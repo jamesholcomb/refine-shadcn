@@ -1,7 +1,20 @@
 {
   "private": true,
   "scripts": {
-    "build": "pnpm --filter @ferdiunal/refine-shadcn build",
-    "dev": "pnpm --filter @ferdiunal/refine-shadcn dev"
+    "build": "pnpm --filter @ferdiunal/refine-shadcn build && pnpm --filter @ferdiunal/refine-shadcn-auth build",
+    "dev": "pnpm --filter @ferdiunal/refine-shadcn dev && pnpm --filter @ferdiunal/refine-shadcn-auth dev"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "19",
+        "react-dom": "19",
+        "@types/react": "19",
+        "@types/react-dom": "19"
+      },
+      "ignoreMissing": [
+        "@tanstack/react-query"
+      ]
+    }
   }
 }

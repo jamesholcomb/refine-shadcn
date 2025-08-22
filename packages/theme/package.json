@@ -104,5 +104,22 @@
     "type": "git",
     "url": "https://github.com/ferdiunal/refine-shadcn.git"
   },
-  "author": "Ferdi UNAL <ferdiunal@outlook.com>"
+  "author": "Ferdi UNAL <ferdiunal@outlook.com>",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./ui": {
+      "types": "./dist/ui.d.ts", 
+      "import": "./dist/ui.mjs",
+      "require": "./dist/ui.js"
+    },
+    "./lib/utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "import": "./dist/lib/utils.mjs", 
+      "require": "./dist/lib/utils.js"
+    }
+  }
 }

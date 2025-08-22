@@ -3,5 +3,6 @@ export * from "./components";
 export * from "./curds";
 export * from "./layouts";
 export * from "./providers";
-export * from "./table";
 export * from "./locales";
+export * from "./table";
+export * from "./lib/utils";

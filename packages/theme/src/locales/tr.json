@@ -53,5 +53,84 @@
       "of": "/",
       "rows": "satır"
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Hesabınıza giriş yapın",
+      "description": "Hesabınıza giriş yapmak için e-posta ve şifrenizi girin",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "emailPlaceholder": "ornek@email.com",
+      "passwordPlaceholder": "Şifrenizi girin",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "success": "Giriş başarılı",
+      "successDescription": "Hoş geldin, {{name}}!",
+      "error": "Giriş başarısız"
+    },
+    "register": {
+      "title": "Hesap oluştur",
+      "description": "Hesabınızı oluşturmak için bilgilerinizi girin",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "password": "Şifre",
+      "confirmPassword": "Şifre Onayı",
+      "submit": "Hesap Oluştur",
+      "namePlaceholder": "Ahmet Yılmaz",
+      "emailPlaceholder": "ornek@email.com",
+      "passwordPlaceholder": "Şifrenizi girin",
+      "confirmPasswordPlaceholder": "Şifrenizi onaylayın",
+      "passwordMismatch": "Şifreler eşleşmiyor",
+      "termsLabel": "{{terms}} ve {{privacy}} kabul ediyorum",
+      "termsLink": "Kullanım Şartları",
+      "privacyLink": "Gizlilik Politikası",
+      "success": "Kayıt başarılı",
+      "successDescription": "Hoş geldin, {{name}}!",
+      "error": "Kayıt başarısız"
+    },
+    "forgotPassword": {
+      "title": "Şifrenizi mi unuttunuz?",
+      "description": "E-posta adresinizi girin, şifre sıfırlama bağlantısı gönderelim",
+      "email": "E-posta",
+      "submit": "Sıfırlama bağlantısı gönder",
+      "backToLogin": "Girişe geri dön",
+      "checkEmailTitle": "E-postanızı kontrol edin",
+      "checkEmailDescription": "{{email}} adresine şifre sıfırlama bağlantısı gönderdik",
+      "checkEmailNote": "E-postayı almadınız mı? Spam klasörünüzü kontrol edin veya tekrar deneyin.",
+      "success": "Sıfırlama e-postası gönderildi",
+      "successDescription": "Şifre sıfırlama talimatları için e-postanızı kontrol edin",
+      "error": "Sıfırlama e-postası gönderilemedi"
+    },
+    "updatePassword": {
+      "success": "Şifre güncellendi",
+      "successDescription": "Şifreniz başarıyla güncellendi",
+      "error": "Şifre güncellenemedi",
+      "passwordMismatch": "Şifreler eşleşmiyor"
+    },
+    "logout": {
+      "success": "Çıkış başarılı",
+      "successDescription": "Başarıyla çıkış yaptınız"
+    },
+    "errors": {
+      "unauthorized": "Kimlik doğrulama başarısız",
+      "checkFailed": "Kontrol başarısız"
+    },
+    "form": {
+      "emailRequired": "E-posta zorunludur",
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+      "passwordRequired": "Şifre zorunludur",
+      "passwordMinLength": "Şifre en az 6 karakter olmalıdır",
+      "passwordMaxLength": "Şifre 100 karakteri geçmemelidir",
+      "passwordStrength": "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
+      "passwordSame": "Yeni şifre mevcut şifreden farklı olmalıdır",
+      "confirmPasswordRequired": "Lütfen şifrenizi onaylayın",
+      "nameRequired": "Ad zorunludur",
+      "nameMinLength": "Ad en az 2 karakter olmalıdır",
+      "nameMaxLength": "Ad 50 karakteri geçmemelidir",
+      "termsRequired": "Şartları ve koşulları kabul etmelisiniz",
+      "tokenRequired": "Sıfırlama kodu zorunludur",
+      "currentPasswordRequired": "Mevcut şifre zorunludur"
+    }
   }
 }

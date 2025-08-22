@@ -34,6 +34,7 @@ export const useGetShowUrl = (
         params: { id: recordItemId, resource: _resource },
         queryOptions: {
             enabled: accessControlEnabled,
+            queryKey: ["useCan", _resource?.name, "show", id],
         },
     });
 
