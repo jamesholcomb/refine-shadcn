@@ -2,6 +2,8 @@
 
 This package is a theme integration for [refine.dev](https://refine.dev) built using [ui.shadcn](ui.shadcn.com).
 
+## [WIKI](https://deepwiki.com/ferdiunal/refine-shadcn)
+
 # Previews 💪
 
 ### [Vite Example](https://refine-shadcn-vite.vercel.app)
