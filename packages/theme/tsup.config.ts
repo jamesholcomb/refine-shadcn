@@ -45,7 +45,7 @@ export default defineConfig((options) => {
                 charset: "utf8",
                 legalComments: shouldMinify ? "none" : "inline",
                 logLevel: isWatchMode ? "info" : "warning",
-                drop: shouldMinify ? ["console", "debugger"] : undefined,
+                drop: shouldMinify ? ["debugger", "console.log", "console.debug"] : undefined,
                 keepNames: !shouldMinify,
                 treeShaking: true,
                 ...(isAnalyze ? {
