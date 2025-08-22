@@ -11,6 +11,7 @@ plugins:
     - - '@semantic-release/npm'
       - npmPublish: true
         tarballDir: dist
+        pkgRoot: '.'
     - - '@semantic-release/git'
       - assets:
             - package.json
