@@ -1,6 +1,6 @@
 {
   "name": "@ferdiunal/refine-shadcn-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Authentication components for refine.dev with shadcn-ui and better-auth",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
