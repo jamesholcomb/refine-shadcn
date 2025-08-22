@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/ferdiunal/refine-shadcn/compare/auth-v1.0.0...auth-v1.0.1) (2025-08-22)
+
 # 1.0.0 (2025-08-22)
 
 
