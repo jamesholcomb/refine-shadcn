@@ -21,6 +21,8 @@ npm install @ferdiunal/refine-shadcn-auth @ferdiunal/refine-shadcn
 yarn add @ferdiunal/refine-shadcn-auth @ferdiunal/refine-shadcn
 # or
 pnpm add @ferdiunal/refine-shadcn-auth @ferdiunal/refine-shadcn
+# or
+bun add @ferdiunal/refine-shadcn-auth @ferdiunal/refine-shadcn
 ```
 
 ## Usage
@@ -37,7 +39,7 @@ function LoginPage() {
   };
 
   return (
-    <LoginForm 
+    <LoginForm
       onSubmit={handleLogin}
       loading={false}
     />
@@ -117,9 +119,9 @@ function LoginPage() {
 The package includes pre-built zod validation schemas:
 
 ```tsx
-import { 
-  loginSchema, 
-  registerSchema, 
+import {
+  loginSchema,
+  registerSchema,
   forgotPasswordSchema,
   type LoginFormData,
   type RegisterFormData,
@@ -151,7 +153,7 @@ The package supports i18n through the refine.dev translation system. Make sure t
       "title": "Create an account",
       "description": "Enter your information below to create your account",
       "name": "Full name",
-      "email": "Email", 
+      "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",
       "submit": "Create account",
