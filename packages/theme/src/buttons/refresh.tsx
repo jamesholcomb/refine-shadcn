@@ -21,7 +21,7 @@ export const RefreshButton: FC<RefreshButtonProps> = ({
 
     const { data } = useCan({
         resource,
-        action: "list",
+        action: "refresh",
         params: { id: recordItemId },
     });
 
