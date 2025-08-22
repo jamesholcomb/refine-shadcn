@@ -1,6 +1,6 @@
 import { EditButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useEditButton } from "@refinedev/core";
+import { useEditButton, useTranslation } from "@refinedev/core";
 import { SquarePenIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -14,6 +14,7 @@ export const EditButton: FC<EditButtonProps> = ({
     children,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const { hidden, disabled, label, title, LinkComponent, to } = useEditButton(
         {
             resource,
@@ -22,6 +23,8 @@ export const EditButton: FC<EditButtonProps> = ({
             meta,
         },
     );
+
+    const translatedLabel = translate("buttons.edit", "Edit");
 
     if (hidden) return null;
 
@@ -46,7 +49,7 @@ export const EditButton: FC<EditButtonProps> = ({
                 {...props}
             >
                 <SquarePenIcon className="mr-2 size-4" />
-                {!hideText && (children ?? label)}
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </LinkComponent>
     );

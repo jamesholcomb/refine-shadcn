@@ -1,163 +1,297 @@
-# Refine ShadCN Theme
+# 🎨 Refine ShadCN Theme
 
-A modern, type-safe React UI theme package for [refine.dev](https://refine.dev) built using [ui.shadcn](ui.shadcn.com) with **Tailwind CSS v4** and **React 19** support.
+A modern, production-ready UI theme package for [Refine](https://refine.dev) applications built with [shadcn/ui](https://ui.shadcn.com) components, featuring **Tailwind CSS v4**, **React 19**, and comprehensive **i18n support**.
 
-## [WIKI](https://deepwiki.com/ferdiunal/refine-shadcn)
+[![npm version](https://badge.fury.io/js/@ferdiunal%2Frefine-shadcn.svg)](https://badge.fury.io/js/@ferdiunal%2Frefine-shadcn)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 
-# Previews 💪
+## ✨ Key Highlights
 
-### [Vite Example](https://refine-shadcn-vite.vercel.app)
-### [Nextjs Example](https://refine-shadcn-nextjs.vercel.app)
+- 🎨 **Latest Tailwind CSS v4** with OKLCH color system
+- ⚡ **React 19 & TypeScript** ready
+- 🌐 **Built-in i18n** support (English & Turkish)
+- 🎯 **Refine-optimized** components
+- 🧩 **Shadcn/ui** design system
+- 📱 **Responsive & Accessible**
+- 🔧 **Fully customizable**
+
+## 🚀 Live Demos
+
+### [📱 Vite Example](https://refine-shadcn-vite.vercel.app)
+### [⚛️ Next.js Example](https://refine-shadcn-nextjs.vercel.app)
+### [📖 Documentation](https://deepwiki.com/ferdiunal/refine-shadcn)
 
 
-## Install
+## 📦 Installation
 
 ```bash
-
+# npm
 npm install @ferdiunal/refine-shadcn
 
-```
-or
-```bash
+# pnpm (recommended)
+pnpm add @ferdiunal/refine-shadcn
 
+# yarn
 yarn add @ferdiunal/refine-shadcn
-
 ```
 
-## Features
+## 🔧 Quick Setup
 
-- 🎨 **Tailwind CSS v4** - Latest CSS-first configuration with OKLCH color system
-- 🔧 **TypeScript** - Full type safety with React 19 support
-- ⚡ **Modern Stack** - React 19, ShadCN/UI, Radix UI primitives
-- 🎯 **Refine Integration** - Built specifically for Refine applications
-- 🧩 **Flexible Components** - Customizable and accessible UI components
-- 📦 **Tree-shakeable** - Only bundle what you use
+### 1. Import Global Styles
 
-## Usage
+```tsx
+// In your main application file (App.tsx, index.tsx, etc.)
+import "@ferdiunal/refine-shadcn/dist/globals.css";
+```
 
-**For Vite**
+### 2. Basic Usage with Refine
 
-[You can use the layout structure prepared for Vite.js from this link](templates/vite-react/src/App.tsx)
+```tsx
+import { Refine } from "@refinedev/core";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@ferdiunal/refine-shadcn";
 
-**For NexJs**
+function App() {
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <Refine
+          // ... your Refine configuration
+        >
+          {/* Your application */}
+        </Refine>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
+}
+```
 
-[You can use the layout structure prepared for Next.js from this link](templates/nextjs/app/app-layout.tsx)
+## 🧩 Core Components
+
+### Action Buttons
+
+All buttons include built-in authorization checks, loading states, and i18n support:
+
+```tsx
+import { 
+  CreateButton, 
+  EditButton, 
+  DeleteButton, 
+  ShowButton, 
+  ListButton 
+} from "@ferdiunal/refine-shadcn";
+
+function ActionBar() {
+  return (
+    <div className="flex gap-2">
+      <CreateButton resource="posts" />
+      <EditButton resource="posts" recordItemId="1" />
+      <ShowButton resource="posts" recordItemId="1" />
+      <DeleteButton 
+        resource="posts" 
+        recordItemId="1"
+        confirmTitle="Delete Post?"
+        confirmDescription="This will permanently delete the post."
+      />
+      <ListButton resource="posts" />
+    </div>
+  );
+}
+```
+
+### Framework Templates
+
+- 📁 **[Vite Template](templates/vite-react/src/App.tsx)** - Complete Vite.js setup
+- 📁 **[Next.js Template](templates/nextjs/app/app-layout.tsx)** - Next.js App Router ready
 
 ### FormField Component
 
-The `FormField` component provides a flexible, type-safe way to create form inputs with react-hook-form integration. It automatically handles labels, descriptions, validation messages, and form control binding.
-
-<details>
-  <summary>FormField Usage Example</summary>
+Type-safe form fields with automatic validation and i18n support:
 
 ```tsx
 import { FormField } from "@ferdiunal/refine-shadcn";
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ferdiunal/refine-shadcn/ui";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-// Define your form schema
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  role: z.string().min(1, "Please select a role"),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
-function MyForm() {
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      role: "",
-    },
-  });
-
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
-
+function UserForm({ control }) {
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Text Input Field */}
+    <div className="space-y-4">
       <FormField
         control={control}
         name="name"
         label="Full Name"
-        description="Enter your full name as it appears on official documents"
-        className="space-y-2"
+        description="Enter your full name"
       >
-        {(field) => (
-          <Input
-            placeholder="John Doe"
-            {...field}
-          />
-        )}
+        {(field) => <Input placeholder="John Doe" {...field} />}
       </FormField>
 
-      {/* Email Input Field */}
-      <FormField
-        control={control}
-        name="email"
-        label="Email Address"
-        description="We'll use this email for important notifications"
-      >
-        {(field) => (
-          <Input
-            type="email"
-            placeholder="john@example.com"
-            {...field}
-          />
-        )}
-      </FormField>
-
-      {/* Select Field */}
       <FormField
         control={control}
         name="role"
         label="User Role"
-        description="Select the appropriate role for this user"
       >
         {(field) => (
           <Select onValueChange={field.onChange} value={field.value}>
             <SelectTrigger>
-              <SelectValue placeholder="Select a role..." />
+              <SelectValue placeholder="Select role..." />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="admin">Administrator</SelectItem>
               <SelectItem value="user">User</SelectItem>
-              <SelectItem value="guest">Guest</SelectItem>
             </SelectContent>
           </Select>
         )}
       </FormField>
+    </div>
+  );
+}
+```
 
-      <button type="submit" className="w-full">
-        Submit Form
-      </button>
-    </form>
+### Internationalization (i18n)
+
+The theme package includes comprehensive internationalization support with built-in English and Turkish translations. All components automatically use translations when an i18nProvider is configured.
+
+<details>
+  <summary>i18n Setup Example</summary>
+
+```tsx
+import React from "react";
+import { Refine } from "@refinedev/core";
+import { I18nProvider, locales } from "@ferdiunal/refine-shadcn";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+// Initialize i18next
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: locales.en },
+    tr: { translation: locales.tr },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+// Create i18n provider
+const i18nProvider = {
+  translate: (key: string, options?: any) => i18n.t(key, options),
+  changeLocale: (lang: string) => i18n.changeLanguage(lang),
+  getLocale: () => i18n.language,
+};
+
+function App() {
+  return (
+    <Refine
+      i18nProvider={i18nProvider}
+      // ... other props
+    >
+      <I18nProvider>
+        {/* Your app components */}
+      </I18nProvider>
+    </Refine>
   );
 }
 ```
 </details>
 
-#### FormField Props
+#### Available Translations
+
+The package includes translations for:
+
+- **Buttons**: Create, Edit, Delete, Show, List, Save, Cancel
+- **Form**: Labels, validation messages, loading states
+- **Dialogs**: Confirmation dialogs, delete confirmations
+- **Tables**: Column headers, pagination, search placeholders
+- **Notifications**: Success, error, warning messages
+
+#### Language Switching Example
 
 ```tsx
-type FormFieldProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
-> = {
-  control: Control<TFieldValues>; // react-hook-form control object
-  name: TName; // Field name (type-safe)
-  label: string; // Field label
-  children: (field: ControllerRenderProps<TFieldValues, TName>) => React.ReactNode; // Render function for input
-  description?: string; // Optional helper text
-  className?: string; // CSS class for the form item container
+import { useTranslation } from "@refinedev/core";
+import { Button } from "@ferdiunal/refine-shadcn/ui";
+
+function LanguageSwitcher() {
+  const { changeLocale, getLocale } = useTranslation();
+  const currentLocale = getLocale();
+
+  return (
+    <div className="flex gap-2">
+      <Button 
+        variant={currentLocale === "en" ? "default" : "outline"}
+        onClick={() => changeLocale("en")}
+      >
+        English
+      </Button>
+      <Button 
+        variant={currentLocale === "tr" ? "default" : "outline"}
+        onClick={() => changeLocale("tr")}
+      >
+        Türkçe
+      </Button>
+    </div>
+  );
+}
+```
+
+#### Custom Translations
+
+You can extend or override the built-in translations:
+
+```tsx
+import { locales } from "@ferdiunal/refine-shadcn";
+
+// Extend English translations
+const customTranslations = {
+  en: {
+    ...locales.en,
+    buttons: {
+      ...locales.en.buttons,
+      customAction: "Custom Action",
+    },
+    custom: {
+      welcome: "Welcome to our application",
+      goodbye: "Thank you for using our service",
+    },
+  },
 };
+
+// Use in i18next configuration
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: customTranslations.en },
+    tr: { translation: locales.tr },
+  },
+  // ... other config
+});
+```
+
+#### Translation Keys Structure
+
+```json
+{
+  "buttons": {
+    "create": "Create",
+    "edit": "Edit", 
+    "delete": "Delete",
+    "show": "Show",
+    "list": "List",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "form": {
+    "required": "This field is required",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "confirmDialog": {
+    "title": "Are you sure?",
+    "description": "This action cannot be undone.",
+    "ok": "Yes, proceed",
+    "cancel": "Cancel"
+  }
+}
 ```
 
 ### List Page

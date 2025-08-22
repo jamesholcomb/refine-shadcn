@@ -1,7 +1,7 @@
 import { SaveButtonProps } from "@/types";
 import { Button } from "@/ui/button";
 import { Slot } from "@radix-ui/react-slot";
-import { CanAccess, useSaveButton } from "@refinedev/core";
+import { CanAccess, useSaveButton, useTranslation } from "@refinedev/core";
 import { SaveIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -14,8 +14,11 @@ export const SaveButton: FC<SaveButtonProps> = ({
     recordItemId,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const { label } = useSaveButton();
     const Com = !accessControl?.enabled ? Slot : CanAccess;
+
+    const translatedLabel = translate("buttons.save", "Save");
 
     if (accessControl?.hideIfUnauthorized && accessControl.enabled) {
         return null;
@@ -32,7 +35,7 @@ export const SaveButton: FC<SaveButtonProps> = ({
         >
             <Button {...props}>
                 <SaveIcon className="mr-2 size-4" />
-                {!hideText && (children ?? label)}
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </Com>
     );

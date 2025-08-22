@@ -21,6 +21,7 @@
     "importHelpers": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]
     },

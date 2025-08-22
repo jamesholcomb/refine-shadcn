@@ -6,6 +6,7 @@ import {
     useNavigation,
     useParsed,
     useRouterType,
+    useTranslation,
     type BaseRecord,
     type HttpError,
 } from "@refinedev/core";
@@ -72,6 +73,7 @@ export const Form = <
 >) => {
     const formId = useId();
     const watchable = useRef<boolean>(false);
+    const { translate } = useTranslation();
     const { resource: _resource, action } = useParsed();
     const routerType = useRouterType();
     const back = useBack();
@@ -109,7 +111,7 @@ export const Form = <
                                 disabled={props.refineCore.formLoading}
                                 variant="outline"
                             >
-                                Cancel
+                                {translate("form.cancel", "Cancel")}
                             </Button>
                         )}
 
