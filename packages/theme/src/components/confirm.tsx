@@ -20,10 +20,6 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
     description = "This action cannot be undone.",
     okText = "Ok",
     cancelText = "Cancel",
-    okButtonSize = "default",
-    cancelButtonSize = "default",
-    okButtonVariant = "default",
-    cancelButtonVariant = "outline",
     loading = false,
     okIconSide = "left",
     cancelIconSide = "left",
@@ -69,8 +65,6 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
-                        variant={cancelButtonVariant}
-                        size={cancelButtonSize}
                         disabled={loading}
                     >
                         {cancelIconSide === "left" && CancelIcon}
@@ -78,8 +72,6 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
                         {cancelIconSide === "right" && CancelIcon}
                     </AlertDialogCancel>
                     <AlertDialogAction
-                        variant={okButtonVariant}
-                        size={okButtonSize}
                         disabled={loading}
                         onClick={onConfirm}
                     >

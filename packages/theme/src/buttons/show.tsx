@@ -41,11 +41,10 @@ export const ShowButton: FC<ShowButtonProps> = ({
             }}
         >
             <Button
-                icon={<EyeIcon className="mr-2 w-4 h-4" />}
                 title={title}
                 disabled={disabled}
-                {...props}
-            >
+                {...props}>
+                <EyeIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </LinkComponent>

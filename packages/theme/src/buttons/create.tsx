@@ -39,9 +39,9 @@ export const CreateButton: FC<CreateButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<SquarePlusIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
+                <SquarePlusIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </LinkComponent>

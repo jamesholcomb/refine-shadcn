@@ -30,7 +30,8 @@ export const SaveButton: FC<SaveButtonProps> = ({
             action="save"
             {...access}
         >
-            <Button icon={<SaveIcon className="mr-2 w-4 h-4" />} {...props}>
+            <Button {...props}>
+                <SaveIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </Com>

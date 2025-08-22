@@ -1,6 +1,5 @@
 "use client";
 
-import type { SaveButtonProps } from "@/types";
 import { Button, Card, CardContent, CardFooter, Form as FormUI } from "@/ui";
 import {
     useBack,
@@ -12,11 +11,10 @@ import {
 } from "@refinedev/core";
 import type { UseFormReturnType } from "@refinedev/react-hook-form";
 import {
-    FC,
     useRef,
     type DetailedHTMLProps,
     type FormHTMLAttributes,
-    type PropsWithChildren,
+    type PropsWithChildren
 } from "react";
 import { type FieldValues } from "react-hook-form";
 import { SaveButton } from "../buttons";
@@ -94,7 +92,7 @@ export const Form = <
     });
 
     return (
-        <FormUI {...props}>
+        <FormUI {...(props as any)}>
             <form {...formProps} onSubmit={onSubmit}>
                 <Card className="border-border/40 shadow-sm">
                     <CardContent className="pt-6 space-y-4">

@@ -43,9 +43,9 @@ export const EditButton: FC<EditButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<SquarePenIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
+                <SquarePenIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </LinkComponent>

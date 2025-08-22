@@ -22,9 +22,9 @@ export const RefreshButton: FC<RefreshButtonProps> = ({
         <Button
             onClick={onClick}
             loading={loading}
-            icon={<RefreshCwIcon className="mr-2 w-4 h-4" />}
             {...props}
         >
+            <RefreshCwIcon className="mr-2 size-4" />
             {!hideText && (children ?? label)}
         </Button>
     );

@@ -1,13 +1,5 @@
 "use client";
 
-import {
-    CalendarIcon,
-    EnvelopeClosedIcon,
-    FaceIcon,
-    GearIcon,
-    PersonIcon,
-    RocketIcon,
-} from "@radix-ui/react-icons";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
@@ -19,13 +11,11 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-    CommandSeparator,
-    CommandShortcut,
     FormControl,
     Popover,
     PopoverContent,
     PopoverTrigger,
-    ScrollArea,
+    ScrollArea
 } from "@/ui";
 import { BaseOption, BaseRecord, UseSelectReturnType } from "@refinedev/core";
 import {

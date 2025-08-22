@@ -47,9 +47,9 @@ export const ImportButton: FC<ImportButtonProps> = ({
         >
             <Button
                 onClick={onClick}
-                icon={<ImportIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
+                <ImportIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </Com>

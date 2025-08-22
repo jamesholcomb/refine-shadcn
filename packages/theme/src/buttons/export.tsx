@@ -31,7 +31,8 @@ export const ExportButton: FC<ExportButtonProps> = ({
             action="export"
             {...access}
         >
-            <Button icon={<ShareIcon className="mr-2 w-4 h-4" />} {...props}>
+            <Button {...props}>
+                <ShareIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </Com>

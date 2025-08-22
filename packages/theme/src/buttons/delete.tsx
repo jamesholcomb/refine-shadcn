@@ -65,9 +65,9 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
                 disabled={disabled}
                 title={title}
                 loading={loading}
-                icon={<Trash2Icon className="mr-2 w-4 h-4" />}
                 {...props}
             >
+               <Trash2Icon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </ConfirmDialog>

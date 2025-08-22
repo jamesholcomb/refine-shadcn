@@ -41,9 +41,9 @@ export const ListButton: FC<ListButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<ListIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
+                <ListIcon className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </LinkComponent>
