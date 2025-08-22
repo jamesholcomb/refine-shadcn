@@ -147,159 +147,51 @@ function UserForm({ control }) {
 }
 ```
 
-### Internationalization (i18n)
+### 🌐 Internationalization (i18n)
 
-The theme package includes comprehensive internationalization support with built-in English and Turkish translations. All components automatically use translations when an i18nProvider is configured.
-
-<details>
-  <summary>i18n Setup Example</summary>
+Built-in support for multiple languages with automatic component translation:
 
 ```tsx
-import React from "react";
 import { Refine } from "@refinedev/core";
 import { I18nProvider, locales } from "@ferdiunal/refine-shadcn";
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 
-// Initialize i18next
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: locales.en },
-    tr: { translation: locales.tr },
-  },
-  lng: "en",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
-});
-
-// Create i18n provider
+// Quick i18n setup
 const i18nProvider = {
-  translate: (key: string, options?: any) => i18n.t(key, options),
+  translate: (key: string, defaultMessage?: string) => i18n.t(key, defaultMessage),
   changeLocale: (lang: string) => i18n.changeLanguage(lang),
   getLocale: () => i18n.language,
 };
 
 function App() {
   return (
-    <Refine
-      i18nProvider={i18nProvider}
-      // ... other props
-    >
+    <Refine i18nProvider={i18nProvider}>
       <I18nProvider>
-        {/* Your app components */}
+        {/* All components now support i18n automatically */}
+        <CreateButton /> {/* Automatically translates to "Create" or "Oluştur" */}
+        <DeleteButton /> {/* Shows localized confirmation dialogs */}
       </I18nProvider>
     </Refine>
   );
 }
 ```
-</details>
 
-#### Available Translations
+**Supported Languages:** 🇬🇧 English • 🇹🇷 Turkish
 
-The package includes translations for:
+**Auto-translated Components:**
+- ✅ All action buttons (Create, Edit, Delete, etc.)
+- ✅ Form labels and validation messages  
+- ✅ Confirmation dialogs
+- ✅ Table headers and pagination
+- ✅ Loading states and notifications
 
-- **Buttons**: Create, Edit, Delete, Show, List, Save, Cancel
-- **Form**: Labels, validation messages, loading states
-- **Dialogs**: Confirmation dialogs, delete confirmations
-- **Tables**: Column headers, pagination, search placeholders
-- **Notifications**: Success, error, warning messages
-
-#### Language Switching Example
-
-```tsx
-import { useTranslation } from "@refinedev/core";
-import { Button } from "@ferdiunal/refine-shadcn/ui";
-
-function LanguageSwitcher() {
-  const { changeLocale, getLocale } = useTranslation();
-  const currentLocale = getLocale();
-
-  return (
-    <div className="flex gap-2">
-      <Button 
-        variant={currentLocale === "en" ? "default" : "outline"}
-        onClick={() => changeLocale("en")}
-      >
-        English
-      </Button>
-      <Button 
-        variant={currentLocale === "tr" ? "default" : "outline"}
-        onClick={() => changeLocale("tr")}
-      >
-        Türkçe
-      </Button>
-    </div>
-  );
-}
-```
-
-#### Custom Translations
-
-You can extend or override the built-in translations:
-
-```tsx
-import { locales } from "@ferdiunal/refine-shadcn";
-
-// Extend English translations
-const customTranslations = {
-  en: {
-    ...locales.en,
-    buttons: {
-      ...locales.en.buttons,
-      customAction: "Custom Action",
-    },
-    custom: {
-      welcome: "Welcome to our application",
-      goodbye: "Thank you for using our service",
-    },
-  },
-};
-
-// Use in i18next configuration
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: customTranslations.en },
-    tr: { translation: locales.tr },
-  },
-  // ... other config
-});
-```
-
-#### Translation Keys Structure
-
-```json
-{
-  "buttons": {
-    "create": "Create",
-    "edit": "Edit", 
-    "delete": "Delete",
-    "show": "Show",
-    "list": "List",
-    "save": "Save",
-    "cancel": "Cancel"
-  },
-  "form": {
-    "required": "This field is required",
-    "save": "Save",
-    "cancel": "Cancel"
-  },
-  "confirmDialog": {
-    "title": "Are you sure?",
-    "description": "This action cannot be undone.",
-    "ok": "Yes, proceed",
-    "cancel": "Cancel"
-  }
-}
-```
+## 📋 Page Components
 
 ### List Page
 
-The List Page displays a table or a grid of records fetched from a data source. It typically includes features like filtering, sorting, bulk actions, and pagination to help users navigate through large sets of data efficiently.
+Feature-rich data tables with filtering, sorting, and bulk actions:
 
 <details>
-  <summary>Code Example</summary>
+  <summary>📊 Table Implementation Example</summary>
 
 ```tsx
 import { ListPage, Table, TableFilterProps } from "@ferdiunal/refine-shadcn";
@@ -440,10 +332,11 @@ export default UserList;
 </details>
 
 ### Show Page
-The Show Page is designed to display detailed information about a single record. It is a read-only view that presents the data in a structured format, often including related records and metadata to give users a comprehensive understanding of the selected item.
+
+Clean, structured display for individual record details:
 
 <details>
-  <summary>Code Example</summary>
+  <summary>👁️ Show Page Example</summary>
 
 ```tsx
 import { ShowPage } from "@ferdiunal/refine-shadcn";
@@ -479,10 +372,11 @@ export default UserShow;
 </details>
 
 ### Create Page
-The Create Page allows users to input new data into the system. It provides a form where users can fill out the necessary fields to create a new record, ensuring that all required information is collected before submission.
+
+User-friendly forms for creating new records with validation:
 
 <details>
-  <summary>Code Example</summary>
+  <summary>➕ Create Form Example</summary>
 
 ```tsx
 import { CreatePage } from "@ferdiunal/refine-shadcn";
@@ -552,10 +446,11 @@ export default UserCreate;
 </details>
 
 ### Edit Page
-The Edit Page enables users to modify existing records. It loads the current data into a form, allowing users to make updates and save changes. It usually includes validation to ensure that updates do not violate any data integrity rules.
+
+Pre-populated forms for updating existing records:
 
 <details>
-  <summary>Code Example</summary>
+  <summary>✏️ Edit Form Example</summary>
 
 ```tsx
 import { EditPage } from "@ferdiunal/refine-shadcn";
@@ -624,24 +519,95 @@ export default UserEdit;
 ```
 </details>
 
-## Screenshots
+## 🎨 UI Components
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-ddjg.png?v=1" />
+Access the complete shadcn/ui component library:
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-ddlx.png?v=1" />
+```tsx
+import { 
+  Button, 
+  Input, 
+  Card, 
+  Dialog, 
+  Select,
+  Table,
+  Form
+} from "@ferdiunal/refine-shadcn/ui";
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-ddns.png?v=1" />
+function MyComponent() {
+  return (
+    <Card className="p-6">
+      <Button variant="primary" size="lg">
+        Click me
+      </Button>
+      <Input placeholder="Type here..." />
+    </Card>
+  );
+}
+```
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-ddpm.png?v=1" />
+## 🎯 Advanced Features
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-ddrb.png?v=1" />
+### Custom Theming
 
-<img src="https://github.com/ferdiunal/refine-shadcn/blob/main/art/SCR-20240821-dfrd.png?v=1" />
+Override CSS variables to match your brand:
 
-# Sponsors
+```css
+:root {
+  --primary: oklch(0.7 0.15 250);
+  --primary-foreground: oklch(0.98 0.02 250);
+  --secondary: oklch(0.96 0.01 250);
+  /* Customize all theme tokens */
+}
+```
 
-[<img src="https://avatars.githubusercontent.com/u/104967037?s=200&v=4" width="100">](https://github.com/refinedev)
+### TypeScript Integration
 
-## License
+Full type safety across all components:
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+```tsx
+// Automatic type inference
+type UserForm = {
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+};
+
+// Type-safe form fields
+<FormField<UserForm, "name">
+  control={control}
+  name="name" // ✅ Fully typed
+  label="Full Name"
+>
+  {(field) => <Input {...field} />}
+</FormField>
+```
+
+## 📚 Resources
+
+- 📖 **[Documentation](https://deepwiki.com/ferdiunal/refine-shadcn)** - Complete guide and API reference
+- 🎮 **[Live Examples](https://refine-shadcn-vite.vercel.app)** - Interactive demos
+- 🐛 **[Issues](https://github.com/ferdiunal/refine-shadcn/issues)** - Report bugs or request features
+- 💬 **[Discussions](https://github.com/ferdiunal/refine-shadcn/discussions)** - Community support
+
+## 🤝 Contributing
+
+We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Refine](https://refine.dev) - The headless React framework
+- [shadcn/ui](https://ui.shadcn.com) - Beautiful component library
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com) - Accessible component primitives
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by <a href="https://github.com/ferdiunal">@ferdiunal</a></p>
+  <p>⭐ Star this repo if it helped you!</p>
+</div>
