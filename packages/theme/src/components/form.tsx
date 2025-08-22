@@ -11,12 +11,13 @@ import {
 } from "@refinedev/core";
 import type { UseFormReturnType } from "@refinedev/react-hook-form";
 import {
+    useId,
     useRef,
     type DetailedHTMLProps,
     type FormHTMLAttributes,
     type PropsWithChildren
 } from "react";
-import { type FieldValues } from "react-hook-form";
+import { type FieldValues, type UseFormReturn } from "react-hook-form";
 import { SaveButton } from "../buttons";
 
 type NativeFormProps = Omit<
@@ -50,7 +51,7 @@ export type FormProps<
 export const Form = <
     TQueryFnData extends BaseRecord = BaseRecord,
     TError extends HttpError = HttpError,
-    TVariables extends FieldValues = FieldValues,
+    TFieldValues extends FieldValues = FieldValues,
     TContext extends object = {},
     TData extends BaseRecord = TQueryFnData,
     TResponse extends BaseRecord = TData,
@@ -63,12 +64,13 @@ export const Form = <
 }: FormProps<
     TQueryFnData,
     TError,
-    TVariables,
+    TFieldValues,
     TContext,
     TData,
     TResponse,
     TResponseError
 >) => {
+    const formId = useId();
     const watchable = useRef<boolean>(false);
     const { resource: _resource, action } = useParsed();
     const routerType = useRouterType();
@@ -87,13 +89,13 @@ export const Form = <
         props.watch();
     }
 
-    const onSubmit = props.handleSubmit((_data: TVariables) => {
+    const onSubmit = props.handleSubmit((_data: TFieldValues) => {
         props.refineCore.onFinish(props.getValues()).then();
     });
 
     return (
-        <FormUI {...(props as any)}>
-            <form {...formProps} onSubmit={onSubmit}>
+        <FormUI {...props as unknown as UseFormReturn<TFieldValues, TContext, TFieldValues>}>
+            <form {...formProps} onSubmit={onSubmit} id={formId}>
                 <Card className="border-border/40 shadow-sm">
                     <CardContent className="pt-6 space-y-4">
                         {props.children}
