@@ -3,7 +3,15 @@ branches:
 debug: false
 ci: true
 plugins:
-    - '@semantic-release/commit-analyzer'
+    - - '@semantic-release/commit-analyzer'
+      - parserOpts:
+          noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES']
+        releaseRules:
+          - { scope: 'theme', breaking: true, release: 'major' }
+          - { scope: 'theme', type: 'feat', release: 'minor' }
+          - { scope: 'theme', type: 'fix', release: 'patch' }
+          - { scope: 'theme', type: 'perf', release: 'patch' }
+          - { scope: 'theme', type: 'refactor', release: 'patch' }
     - '@semantic-release/release-notes-generator'
     - '@semantic-release/changelog'
     - - '@semantic-release/exec'

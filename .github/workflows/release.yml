@@ -16,6 +16,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Check for file changes
+        id: changed-files-theme
+        uses: tj-actions/changed-files@v44
+        with:
+          files: packages/theme/**
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -45,9 +51,11 @@ jobs:
         run: pnpm install
 
       - name: Build theme package
+        if: steps.changed-files-theme.outputs.any_changed == 'true'
         run: pnpm --filter @ferdiunal/refine-shadcn build
 
       - name: Release theme package
+        if: steps.changed-files-theme.outputs.any_changed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -57,6 +65,7 @@ jobs:
           npx semantic-release
 
       - name: Upload theme artifacts
+        if: steps.changed-files-theme.outputs.any_changed == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: theme-dist
@@ -74,6 +83,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
           ref: main
+
+      - name: Check for file changes
+        id: changed-files-auth
+        uses: tj-actions/changed-files@v44
+        with:
+          files: packages/auth/**
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -118,9 +133,11 @@ jobs:
           path: packages/theme/dist
 
       - name: Build auth package
+        if: steps.changed-files-auth.outputs.any_changed == 'true'
         run: pnpm --filter @ferdiunal/refine-shadcn-auth build
 
       - name: Release auth package
+        if: steps.changed-files-auth.outputs.any_changed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
