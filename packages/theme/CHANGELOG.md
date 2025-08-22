@@ -1,6 +1,5 @@
 # 1.0.0 (2025-08-22)
 
-
 ### Bug Fixes
 
 * Add react-use dependency for sidebar component ([982ac49](https://github.com/ferdiunal/refine-shadcn/commit/982ac491c7f614e08076fb56ad190a0f320e70e4))
