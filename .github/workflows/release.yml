@@ -51,7 +51,6 @@ jobs:
         run: pnpm install
 
       - name: Build theme package
-        if: steps.changed-files-theme.outputs.any_changed == 'true'
         run: pnpm --filter @ferdiunal/refine-shadcn build
 
       - name: Pull latest changes
@@ -74,7 +73,6 @@ jobs:
           npx semantic-release
 
       - name: Upload theme artifacts
-        if: steps.changed-files-theme.outputs.any_changed == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: theme-dist
