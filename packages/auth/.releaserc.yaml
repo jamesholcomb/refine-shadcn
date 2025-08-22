@@ -13,11 +13,8 @@ plugins:
         tarballDir: dist
     - - '@semantic-release/git'
       - assets:
-            - dist/**/*.{js,ts}
             - package.json
             - CHANGELOG.md
-            - LICENSE
-            - README.md
         message: |-
             chore(auth): ${nextRelease.version} [skip ci]
             ${nextRelease.notes}
