@@ -64,17 +64,35 @@ export default defineConfig((options) => {
                 "react-dom",
                 "react/jsx-runtime",
 
-                // Refine core
+                // Refine core & extensions
                 "@refinedev/core",
                 "@refinedev/react-hook-form",
+                "@refinedev/react-table",
+                "@refinedev/ui-types",
 
                 // Form libraries
                 "react-hook-form",
                 "@hookform/resolvers",
 
-                // UI libraries
+                // Table libraries
+                "@tanstack/react-table",
+
+                // UI libraries - Radix UI
                 "@radix-ui/react-slot",
                 "@radix-ui/react-label",
+                "@radix-ui/react-alert-dialog",
+                "@radix-ui/react-avatar",
+                "@radix-ui/react-checkbox",
+                "@radix-ui/react-dialog",
+                "@radix-ui/react-dropdown-menu",
+                "@radix-ui/react-popover",
+                "@radix-ui/react-scroll-area",
+                "@radix-ui/react-select",
+                "@radix-ui/react-separator",
+                "@radix-ui/react-tooltip",
+                "@radix-ui/react-icons",
+
+                // UI utilities
                 "class-variance-authority",
                 "clsx",
                 "tailwind-merge",
@@ -84,6 +102,13 @@ export default defineConfig((options) => {
 
                 // Utilities
                 "zod",
+                "react-use",
+                "next-themes",
+                "cmdk",
+                "date-fns",
+                "react-day-picker",
+                "react-resizable-panels",
+                "sonner",
             ],
 
             // Asset loaders
@@ -99,10 +124,10 @@ export default defineConfig((options) => {
             // Development
             watch: isWatchMode,
 
-            // Banner for production builds
-            banner: shouldMinify ? {
+            // Banner for production builds - always include for proper attribution
+            banner: {
                 js: `/*! @ferdiunal/refine-shadcn v${packageVersion} | MIT License | https://github.com/ferdiunal/refine-shadcn */`,
-            } : undefined,
+            },
 
             // Custom plugins for analysis
             esbuildPlugins: isAnalyze ? [
