@@ -171,9 +171,9 @@ export function Table<
                     <TableUi>
                         {showHeader && (
                             <TableHeader>
-                                {table.getHeaderGroups().map((headerGroup) => (
+                                {table.getHeaderGroups().map((headerGroup: any) => (
                                     <TableRow key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => {
+                                        {headerGroup.headers.map((header: any) => {
                                             const columnDef = header.column
                                                 .columnDef as CustomColumnDef<
                                                 TData,
