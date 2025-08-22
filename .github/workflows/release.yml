@@ -54,6 +54,15 @@ jobs:
         if: steps.changed-files-theme.outputs.any_changed == 'true'
         run: pnpm --filter @ferdiunal/refine-shadcn build
 
+      - name: Pull latest changes
+        if: steps.changed-files-theme.outputs.any_changed == 'true'
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git stash -u
+          git pull origin main --rebase
+          git stash pop || true
+
       - name: Release theme package
         if: steps.changed-files-theme.outputs.any_changed == 'true'
         env:
