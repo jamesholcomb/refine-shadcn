@@ -3,7 +3,7 @@ import { VariantProps } from 'class-variance-authority';
 import * as React$1 from 'react';
 import React__default, { ReactElement, ComponentProps, ReactNode, PropsWithChildren, FC, DetailedHTMLProps, FormHTMLAttributes } from 'react';
 import { CanAccess, UseSelectReturnType, BaseOption, BaseRecord, HttpError, NotificationProvider } from '@refinedev/core';
-import { RefineShowButtonProps, RefineCreateButtonProps, RefineDeleteButtonProps, RefineEditButtonProps, RefineListButtonProps, RefineSaveButtonProps, RefineButtonResourceProps, RefineButtonSingleProps, RefineExportButtonProps, RefineRefreshButtonProps, RefineCloneButtonProps, RefineCrudCreateProps, RefineCrudEditProps, RefineCrudListProps, RefineCrudShowProps, RefineBreadcrumbProps } from '@refinedev/ui-types';
+import { RefineCloneButtonProps, RefineCreateButtonProps, RefineDeleteButtonProps, RefineEditButtonProps, RefineExportButtonProps, RefineButtonResourceProps, RefineButtonSingleProps, RefineListButtonProps, RefineRefreshButtonProps, RefineSaveButtonProps, RefineShowButtonProps, RefineCrudCreateProps, RefineCrudEditProps, RefineCrudListProps, RefineCrudShowProps, RefineBreadcrumbProps } from '@refinedev/ui-types';
 import { AlertDialogProps } from '@radix-ui/react-alert-dialog';
 import { DeleteButtonValues } from '@refinedev/core/dist/hooks/button/delete-button';
 import * as react_jsx_runtime from 'react/jsx-runtime';
@@ -227,9 +227,9 @@ type BreadcrumbProps = RefineBreadcrumbProps;
 declare const Breadcrumbs: FC<BreadcrumbProps>;
 
 declare const Combobox: React$1.ForwardRefExoticComponent<Omit<Omit<{
-    children?: React$1.ReactNode;
+    children?: React.ReactNode;
 } & Pick<Pick<React$1.DetailedHTMLProps<React$1.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React$1.HTMLAttributes<HTMLDivElement>> & {
-    ref?: React$1.Ref<HTMLDivElement>;
+    ref?: React.Ref<HTMLDivElement>;
 } & {
     asChild?: boolean;
 }, "key" | "asChild" | keyof React$1.HTMLAttributes<HTMLDivElement>> & {

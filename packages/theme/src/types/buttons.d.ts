@@ -40,25 +40,22 @@ export type ListButtonProps = CustomButtonProps<RefineListButtonProps>;
 export type SaveButtonProps = ButtonProps &
     RefineSaveButtonProps &
     RefineButtonResourceProps &
-    RefineButtonSingleProps & {
-        access?: Omit<
-            React.ComponentProps<typeof CanAccess>,
-            "children" | "action" | "resource" | "params"
-        >;
-    };
+    RefineButtonSingleProps;
 
 export type ExportButtonProps = ButtonProps &
     RefineExportButtonProps<
         RefineButtonResourceProps &
-            RefineButtonSingleProps & {
-                access: Omit<
-                    ComponentProps<typeof CanAccess>,
-                    "children" | "action" | "resource" | "params"
-                >;
-            }
+            RefineButtonSingleProps
     >;
 
-export type RefreshButtonProps = CustomButtonProps<RefineRefreshButtonProps>;
+export type RefreshButtonProps = CustomButtonProps<
+    RefineRefreshButtonProps & {
+        accessControl?: {
+            enabled?: boolean;
+            hideIfUnauthorized?: boolean;
+        };
+    }
+>;
 
 export type CloneButtonProps = CustomButtonProps<
     Pick<
@@ -76,12 +73,7 @@ export type ImportButtonProps = Omit<
     CustomButtonProps<
         RefineExportButtonProps<
             RefineButtonResourceProps &
-                RefineButtonSingleProps & {
-                    access: Omit<
-                        React.ComponentProps<typeof CanAccess>,
-                        "children" | "action" | "resource" | "params"
-                    >;
-                }
+                RefineButtonSingleProps
         >
     > & {
         accept: React.InputHTMLAttributes<HTMLInputElement>["accept"];
