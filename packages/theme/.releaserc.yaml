@@ -7,7 +7,7 @@ plugins:
     - '@semantic-release/release-notes-generator'
     - '@semantic-release/changelog'
     - - '@semantic-release/exec'
-      - prepareCmd: 'node -p "JSON.stringify({...require(\"./package.json\"), version: \"${nextRelease.version}\"}, null, 2)" > package.json'
+      - prepareCmd: 'node update-version.js ${nextRelease.version}'
     - - '@semantic-release/npm'
       - npmPublish: true
         tarballDir: dist
