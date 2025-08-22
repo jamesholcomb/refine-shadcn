@@ -14,6 +14,7 @@ import * as _radix_ui_react_checkbox from '@radix-ui/react-checkbox';
 import { PopoverContentProps } from '@radix-ui/react-popover';
 import { UseTableReturnType, UseTableProps } from '@refinedev/react-table';
 import { Column, ColumnDefTemplate, CellContext } from '@tanstack/react-table';
+import { ClassValue } from 'clsx';
 
 declare const buttonVariants: (props?: ({
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
@@ -381,6 +382,569 @@ interface I18nProviderProps {
 declare function I18nProvider({ children }: I18nProviderProps): react_jsx_runtime.JSX.Element;
 declare function useI18n(): I18nContextValue;
 
+var buttons$1 = {
+	create: "Create",
+	edit: "Edit",
+	"delete": "Delete",
+	show: "Show",
+	list: "List",
+	save: "Save",
+	cancel: "Cancel",
+	ok: "OK",
+	loading: "Loading..."
+};
+var pages$1 = {
+	create: "Create {{resource}}",
+	edit: "Edit {{resource}}",
+	show: "Show {{resource}}",
+	list: "{{resource}} List"
+};
+var form$1 = {
+	required: "This field is required",
+	invalid: "Invalid input",
+	save: "Save",
+	cancel: "Cancel",
+	loading: "Saving..."
+};
+var confirmDialog$1 = {
+	title: "Are you sure?",
+	description: "This action cannot be undone.",
+	"delete": {
+		title: "Delete {{resource}}",
+		description: "Are you sure you want to delete this {{resource}}? This action cannot be undone."
+	},
+	ok: "Yes, proceed",
+	cancel: "Cancel"
+};
+var notifications$1 = {
+	success: "Success",
+	error: "Error",
+	warning: "Warning",
+	info: "Information"
+};
+var table$1 = {
+	actions: "Actions",
+	noData: "No data available",
+	loading: "Loading...",
+	search: "Search...",
+	filter: "Filter",
+	sort: "Sort",
+	pagination: {
+		previous: "Previous",
+		next: "Next",
+		page: "Page",
+		of: "of",
+		rows: "rows"
+	}
+};
+var auth$1 = {
+	login: {
+		title: "Login to your account",
+		description: "Enter your email and password below to login to your account",
+		email: "Email",
+		password: "Password",
+		submit: "Login",
+		emailPlaceholder: "m@example.com",
+		passwordPlaceholder: "Enter your password",
+		showPassword: "Show password",
+		hidePassword: "Hide password",
+		success: "Login successful",
+		successDescription: "Welcome back, {{name}}!",
+		error: "Login failed"
+	},
+	register: {
+		title: "Create an account",
+		description: "Enter your information below to create your account",
+		name: "Full name",
+		email: "Email",
+		password: "Password",
+		confirmPassword: "Confirm Password",
+		submit: "Create account",
+		namePlaceholder: "John Doe",
+		emailPlaceholder: "m@example.com",
+		passwordPlaceholder: "Enter your password",
+		confirmPasswordPlaceholder: "Confirm your password",
+		passwordMismatch: "Passwords do not match",
+		termsLabel: "I agree to the {{terms}} and {{privacy}}",
+		termsLink: "Terms of Service",
+		privacyLink: "Privacy Policy",
+		success: "Registration successful",
+		successDescription: "Welcome, {{name}}!",
+		error: "Registration failed"
+	},
+	forgotPassword: {
+		title: "Forgot your password?",
+		description: "Enter your email address and we'll send you a link to reset your password",
+		email: "Email",
+		submit: "Send reset link",
+		backToLogin: "Back to login",
+		checkEmailTitle: "Check your email",
+		checkEmailDescription: "We've sent a password reset link to {{email}}",
+		checkEmailNote: "Didn't receive the email? Check your spam folder or try again.",
+		success: "Reset email sent",
+		successDescription: "Please check your email for password reset instructions",
+		error: "Failed to send reset email"
+	},
+	updatePassword: {
+		success: "Password updated",
+		successDescription: "Your password has been updated successfully",
+		error: "Failed to update password",
+		passwordMismatch: "Passwords do not match"
+	},
+	logout: {
+		success: "Logout successful",
+		successDescription: "You have been logged out successfully"
+	},
+	errors: {
+		unauthorized: "Authentication failed",
+		checkFailed: "Check failed"
+	},
+	form: {
+		emailRequired: "Email is required",
+		emailInvalid: "Please enter a valid email address",
+		passwordRequired: "Password is required",
+		passwordMinLength: "Password must be at least 6 characters",
+		passwordMaxLength: "Password must not exceed 100 characters",
+		passwordStrength: "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+		passwordSame: "New password must be different from current password",
+		confirmPasswordRequired: "Please confirm your password",
+		nameRequired: "Name is required",
+		nameMinLength: "Name must be at least 2 characters",
+		nameMaxLength: "Name must not exceed 50 characters",
+		termsRequired: "You must accept the terms and conditions",
+		tokenRequired: "Reset token is required",
+		currentPasswordRequired: "Current password is required"
+	}
+};
+var en = {
+	buttons: buttons$1,
+	pages: pages$1,
+	form: form$1,
+	confirmDialog: confirmDialog$1,
+	notifications: notifications$1,
+	table: table$1,
+	auth: auth$1
+};
+
+var buttons = {
+	create: "Oluştur",
+	edit: "Düzenle",
+	"delete": "Sil",
+	show: "Göster",
+	list: "Liste",
+	save: "Kaydet",
+	cancel: "İptal",
+	ok: "Tamam",
+	loading: "Yükleniyor..."
+};
+var pages = {
+	create: "{{resource}} Oluştur",
+	edit: "{{resource}} Düzenle",
+	show: "{{resource}} Göster",
+	list: "{{resource}} Listesi"
+};
+var form = {
+	required: "Bu alan zorunludur",
+	invalid: "Geçersiz giriş",
+	save: "Kaydet",
+	cancel: "İptal",
+	loading: "Kaydediliyor..."
+};
+var confirmDialog = {
+	title: "Emin misiniz?",
+	description: "Bu işlem geri alınamaz.",
+	"delete": {
+		title: "{{resource}} Sil",
+		description: "Bu {{resource}} öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+	},
+	ok: "Evet, devam et",
+	cancel: "İptal"
+};
+var notifications = {
+	success: "Başarılı",
+	error: "Hata",
+	warning: "Uyarı",
+	info: "Bilgi"
+};
+var table = {
+	actions: "İşlemler",
+	noData: "Veri bulunamadı",
+	loading: "Yükleniyor...",
+	search: "Ara...",
+	filter: "Filtrele",
+	sort: "Sırala",
+	pagination: {
+		previous: "Önceki",
+		next: "Sonraki",
+		page: "Sayfa",
+		of: "/",
+		rows: "satır"
+	}
+};
+var auth = {
+	login: {
+		title: "Hesabınıza giriş yapın",
+		description: "Hesabınıza giriş yapmak için e-posta ve şifrenizi girin",
+		email: "E-posta",
+		password: "Şifre",
+		submit: "Giriş Yap",
+		emailPlaceholder: "ornek@email.com",
+		passwordPlaceholder: "Şifrenizi girin",
+		showPassword: "Şifreyi göster",
+		hidePassword: "Şifreyi gizle",
+		success: "Giriş başarılı",
+		successDescription: "Hoş geldin, {{name}}!",
+		error: "Giriş başarısız"
+	},
+	register: {
+		title: "Hesap oluştur",
+		description: "Hesabınızı oluşturmak için bilgilerinizi girin",
+		name: "Ad Soyad",
+		email: "E-posta",
+		password: "Şifre",
+		confirmPassword: "Şifre Onayı",
+		submit: "Hesap Oluştur",
+		namePlaceholder: "Ahmet Yılmaz",
+		emailPlaceholder: "ornek@email.com",
+		passwordPlaceholder: "Şifrenizi girin",
+		confirmPasswordPlaceholder: "Şifrenizi onaylayın",
+		passwordMismatch: "Şifreler eşleşmiyor",
+		termsLabel: "{{terms}} ve {{privacy}} kabul ediyorum",
+		termsLink: "Kullanım Şartları",
+		privacyLink: "Gizlilik Politikası",
+		success: "Kayıt başarılı",
+		successDescription: "Hoş geldin, {{name}}!",
+		error: "Kayıt başarısız"
+	},
+	forgotPassword: {
+		title: "Şifrenizi mi unuttunuz?",
+		description: "E-posta adresinizi girin, şifre sıfırlama bağlantısı gönderelim",
+		email: "E-posta",
+		submit: "Sıfırlama bağlantısı gönder",
+		backToLogin: "Girişe geri dön",
+		checkEmailTitle: "E-postanızı kontrol edin",
+		checkEmailDescription: "{{email}} adresine şifre sıfırlama bağlantısı gönderdik",
+		checkEmailNote: "E-postayı almadınız mı? Spam klasörünüzü kontrol edin veya tekrar deneyin.",
+		success: "Sıfırlama e-postası gönderildi",
+		successDescription: "Şifre sıfırlama talimatları için e-postanızı kontrol edin",
+		error: "Sıfırlama e-postası gönderilemedi"
+	},
+	updatePassword: {
+		success: "Şifre güncellendi",
+		successDescription: "Şifreniz başarıyla güncellendi",
+		error: "Şifre güncellenemedi",
+		passwordMismatch: "Şifreler eşleşmiyor"
+	},
+	logout: {
+		success: "Çıkış başarılı",
+		successDescription: "Başarıyla çıkış yaptınız"
+	},
+	errors: {
+		unauthorized: "Kimlik doğrulama başarısız",
+		checkFailed: "Kontrol başarısız"
+	},
+	form: {
+		emailRequired: "E-posta zorunludur",
+		emailInvalid: "Lütfen geçerli bir e-posta adresi girin",
+		passwordRequired: "Şifre zorunludur",
+		passwordMinLength: "Şifre en az 6 karakter olmalıdır",
+		passwordMaxLength: "Şifre 100 karakteri geçmemelidir",
+		passwordStrength: "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
+		passwordSame: "Yeni şifre mevcut şifreden farklı olmalıdır",
+		confirmPasswordRequired: "Lütfen şifrenizi onaylayın",
+		nameRequired: "Ad zorunludur",
+		nameMinLength: "Ad en az 2 karakter olmalıdır",
+		nameMaxLength: "Ad 50 karakteri geçmemelidir",
+		termsRequired: "Şartları ve koşulları kabul etmelisiniz",
+		tokenRequired: "Sıfırlama kodu zorunludur",
+		currentPasswordRequired: "Mevcut şifre zorunludur"
+	}
+};
+var tr = {
+	buttons: buttons,
+	pages: pages,
+	form: form,
+	confirmDialog: confirmDialog,
+	notifications: notifications,
+	table: table,
+	auth: auth
+};
+
+declare const locales: {
+    en: {
+        buttons: {
+            create: string;
+            edit: string;
+            delete: string;
+            show: string;
+            list: string;
+            save: string;
+            cancel: string;
+            ok: string;
+            loading: string;
+        };
+        pages: {
+            create: string;
+            edit: string;
+            show: string;
+            list: string;
+        };
+        form: {
+            required: string;
+            invalid: string;
+            save: string;
+            cancel: string;
+            loading: string;
+        };
+        confirmDialog: {
+            title: string;
+            description: string;
+            delete: {
+                title: string;
+                description: string;
+            };
+            ok: string;
+            cancel: string;
+        };
+        notifications: {
+            success: string;
+            error: string;
+            warning: string;
+            info: string;
+        };
+        table: {
+            actions: string;
+            noData: string;
+            loading: string;
+            search: string;
+            filter: string;
+            sort: string;
+            pagination: {
+                previous: string;
+                next: string;
+                page: string;
+                of: string;
+                rows: string;
+            };
+        };
+        auth: {
+            login: {
+                title: string;
+                description: string;
+                email: string;
+                password: string;
+                submit: string;
+                emailPlaceholder: string;
+                passwordPlaceholder: string;
+                showPassword: string;
+                hidePassword: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            register: {
+                title: string;
+                description: string;
+                name: string;
+                email: string;
+                password: string;
+                confirmPassword: string;
+                submit: string;
+                namePlaceholder: string;
+                emailPlaceholder: string;
+                passwordPlaceholder: string;
+                confirmPasswordPlaceholder: string;
+                passwordMismatch: string;
+                termsLabel: string;
+                termsLink: string;
+                privacyLink: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            forgotPassword: {
+                title: string;
+                description: string;
+                email: string;
+                submit: string;
+                backToLogin: string;
+                checkEmailTitle: string;
+                checkEmailDescription: string;
+                checkEmailNote: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            updatePassword: {
+                success: string;
+                successDescription: string;
+                error: string;
+                passwordMismatch: string;
+            };
+            logout: {
+                success: string;
+                successDescription: string;
+            };
+            errors: {
+                unauthorized: string;
+                checkFailed: string;
+            };
+            form: {
+                emailRequired: string;
+                emailInvalid: string;
+                passwordRequired: string;
+                passwordMinLength: string;
+                passwordMaxLength: string;
+                passwordStrength: string;
+                passwordSame: string;
+                confirmPasswordRequired: string;
+                nameRequired: string;
+                nameMinLength: string;
+                nameMaxLength: string;
+                termsRequired: string;
+                tokenRequired: string;
+                currentPasswordRequired: string;
+            };
+        };
+    };
+    tr: {
+        buttons: {
+            create: string;
+            edit: string;
+            delete: string;
+            show: string;
+            list: string;
+            save: string;
+            cancel: string;
+            ok: string;
+            loading: string;
+        };
+        pages: {
+            create: string;
+            edit: string;
+            show: string;
+            list: string;
+        };
+        form: {
+            required: string;
+            invalid: string;
+            save: string;
+            cancel: string;
+            loading: string;
+        };
+        confirmDialog: {
+            title: string;
+            description: string;
+            delete: {
+                title: string;
+                description: string;
+            };
+            ok: string;
+            cancel: string;
+        };
+        notifications: {
+            success: string;
+            error: string;
+            warning: string;
+            info: string;
+        };
+        table: {
+            actions: string;
+            noData: string;
+            loading: string;
+            search: string;
+            filter: string;
+            sort: string;
+            pagination: {
+                previous: string;
+                next: string;
+                page: string;
+                of: string;
+                rows: string;
+            };
+        };
+        auth: {
+            login: {
+                title: string;
+                description: string;
+                email: string;
+                password: string;
+                submit: string;
+                emailPlaceholder: string;
+                passwordPlaceholder: string;
+                showPassword: string;
+                hidePassword: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            register: {
+                title: string;
+                description: string;
+                name: string;
+                email: string;
+                password: string;
+                confirmPassword: string;
+                submit: string;
+                namePlaceholder: string;
+                emailPlaceholder: string;
+                passwordPlaceholder: string;
+                confirmPasswordPlaceholder: string;
+                passwordMismatch: string;
+                termsLabel: string;
+                termsLink: string;
+                privacyLink: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            forgotPassword: {
+                title: string;
+                description: string;
+                email: string;
+                submit: string;
+                backToLogin: string;
+                checkEmailTitle: string;
+                checkEmailDescription: string;
+                checkEmailNote: string;
+                success: string;
+                successDescription: string;
+                error: string;
+            };
+            updatePassword: {
+                success: string;
+                successDescription: string;
+                error: string;
+                passwordMismatch: string;
+            };
+            logout: {
+                success: string;
+                successDescription: string;
+            };
+            errors: {
+                unauthorized: string;
+                checkFailed: string;
+            };
+            form: {
+                emailRequired: string;
+                emailInvalid: string;
+                passwordRequired: string;
+                passwordMinLength: string;
+                passwordMaxLength: string;
+                passwordStrength: string;
+                passwordSame: string;
+                confirmPasswordRequired: string;
+                nameRequired: string;
+                nameMinLength: string;
+                nameMaxLength: string;
+                termsRequired: string;
+                tokenRequired: string;
+                currentPasswordRequired: string;
+            };
+        };
+    };
+};
+
 interface RowActionsProps {
     children?: ReactNode;
 }
@@ -485,249 +1049,6 @@ declare namespace Table {
     var displayName: string;
 }
 
-var buttons$1 = {
-	create: "Create",
-	edit: "Edit",
-	"delete": "Delete",
-	show: "Show",
-	list: "List",
-	save: "Save",
-	cancel: "Cancel",
-	ok: "OK",
-	loading: "Loading..."
-};
-var pages$1 = {
-	create: "Create {{resource}}",
-	edit: "Edit {{resource}}",
-	show: "Show {{resource}}",
-	list: "{{resource}} List"
-};
-var form$1 = {
-	required: "This field is required",
-	invalid: "Invalid input",
-	save: "Save",
-	cancel: "Cancel",
-	loading: "Saving..."
-};
-var confirmDialog$1 = {
-	title: "Are you sure?",
-	description: "This action cannot be undone.",
-	"delete": {
-		title: "Delete {{resource}}",
-		description: "Are you sure you want to delete this {{resource}}? This action cannot be undone."
-	},
-	ok: "Yes, proceed",
-	cancel: "Cancel"
-};
-var notifications$1 = {
-	success: "Success",
-	error: "Error",
-	warning: "Warning",
-	info: "Information"
-};
-var table$1 = {
-	actions: "Actions",
-	noData: "No data available",
-	loading: "Loading...",
-	search: "Search...",
-	filter: "Filter",
-	sort: "Sort",
-	pagination: {
-		previous: "Previous",
-		next: "Next",
-		page: "Page",
-		of: "of",
-		rows: "rows"
-	}
-};
-var en = {
-	buttons: buttons$1,
-	pages: pages$1,
-	form: form$1,
-	confirmDialog: confirmDialog$1,
-	notifications: notifications$1,
-	table: table$1
-};
+declare function cn(...inputs: ClassValue[]): string;
 
-var buttons = {
-	create: "Oluştur",
-	edit: "Düzenle",
-	"delete": "Sil",
-	show: "Göster",
-	list: "Liste",
-	save: "Kaydet",
-	cancel: "İptal",
-	ok: "Tamam",
-	loading: "Yükleniyor..."
-};
-var pages = {
-	create: "{{resource}} Oluştur",
-	edit: "{{resource}} Düzenle",
-	show: "{{resource}} Göster",
-	list: "{{resource}} Listesi"
-};
-var form = {
-	required: "Bu alan zorunludur",
-	invalid: "Geçersiz giriş",
-	save: "Kaydet",
-	cancel: "İptal",
-	loading: "Kaydediliyor..."
-};
-var confirmDialog = {
-	title: "Emin misiniz?",
-	description: "Bu işlem geri alınamaz.",
-	"delete": {
-		title: "{{resource}} Sil",
-		description: "Bu {{resource}} öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
-	},
-	ok: "Evet, devam et",
-	cancel: "İptal"
-};
-var notifications = {
-	success: "Başarılı",
-	error: "Hata",
-	warning: "Uyarı",
-	info: "Bilgi"
-};
-var table = {
-	actions: "İşlemler",
-	noData: "Veri bulunamadı",
-	loading: "Yükleniyor...",
-	search: "Ara...",
-	filter: "Filtrele",
-	sort: "Sırala",
-	pagination: {
-		previous: "Önceki",
-		next: "Sonraki",
-		page: "Sayfa",
-		of: "/",
-		rows: "satır"
-	}
-};
-var tr = {
-	buttons: buttons,
-	pages: pages,
-	form: form,
-	confirmDialog: confirmDialog,
-	notifications: notifications,
-	table: table
-};
-
-declare const locales: {
-    en: {
-        buttons: {
-            create: string;
-            edit: string;
-            delete: string;
-            show: string;
-            list: string;
-            save: string;
-            cancel: string;
-            ok: string;
-            loading: string;
-        };
-        pages: {
-            create: string;
-            edit: string;
-            show: string;
-            list: string;
-        };
-        form: {
-            required: string;
-            invalid: string;
-            save: string;
-            cancel: string;
-            loading: string;
-        };
-        confirmDialog: {
-            title: string;
-            description: string;
-            delete: {
-                title: string;
-                description: string;
-            };
-            ok: string;
-            cancel: string;
-        };
-        notifications: {
-            success: string;
-            error: string;
-            warning: string;
-            info: string;
-        };
-        table: {
-            actions: string;
-            noData: string;
-            loading: string;
-            search: string;
-            filter: string;
-            sort: string;
-            pagination: {
-                previous: string;
-                next: string;
-                page: string;
-                of: string;
-                rows: string;
-            };
-        };
-    };
-    tr: {
-        buttons: {
-            create: string;
-            edit: string;
-            delete: string;
-            show: string;
-            list: string;
-            save: string;
-            cancel: string;
-            ok: string;
-            loading: string;
-        };
-        pages: {
-            create: string;
-            edit: string;
-            show: string;
-            list: string;
-        };
-        form: {
-            required: string;
-            invalid: string;
-            save: string;
-            cancel: string;
-            loading: string;
-        };
-        confirmDialog: {
-            title: string;
-            description: string;
-            delete: {
-                title: string;
-                description: string;
-            };
-            ok: string;
-            cancel: string;
-        };
-        notifications: {
-            success: string;
-            error: string;
-            warning: string;
-            info: string;
-        };
-        table: {
-            actions: string;
-            noData: string;
-            loading: string;
-            search: string;
-            filter: string;
-            sort: string;
-            pagination: {
-                previous: string;
-                next: string;
-                page: string;
-                of: string;
-                rows: string;
-            };
-        };
-    };
-};
-
-export { BaseLayout, type BreadcrumbProps, Breadcrumbs, CloneButton, type ColumnProps, Combobox, ConfirmDialog, CreateButton, CreatePage, DefaultLayout, DeleteActionModal, DeleteButton, DeleteContext, type DeleteContextType, DeleteProvider, EditButton, EditPage, ExportButton, Field, Form, FormField, type FormProps, type I18nContextValue, I18nProvider, type I18nProviderProps, ImportButton, Link, ListButton, ListPage, ModeToggle, PageHeader, RefreshButton, SaveButton, Select, type SelectProps, ShowButton, ShowPage, Sidebar, Table, type TableFilterProps, type TableListFilterOption, type TableProps, ThemeProvider, en, locales, notificationProvider, tr, useI18n, useNotificationProvider };
+export { BaseLayout, type BreadcrumbProps, Breadcrumbs, CloneButton, type ColumnProps, Combobox, ConfirmDialog, CreateButton, CreatePage, DefaultLayout, DeleteActionModal, DeleteButton, DeleteContext, type DeleteContextType, DeleteProvider, EditButton, EditPage, ExportButton, Field, Form, FormField, type FormProps, type I18nContextValue, I18nProvider, type I18nProviderProps, ImportButton, Link, ListButton, ListPage, ModeToggle, PageHeader, RefreshButton, SaveButton, Select, type SelectProps, ShowButton, ShowPage, Sidebar, Table, type TableFilterProps, type TableListFilterOption, type TableProps, ThemeProvider, cn, en, locales, notificationProvider, tr, useI18n, useNotificationProvider };
