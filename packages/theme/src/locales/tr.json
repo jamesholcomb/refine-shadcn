@@ -1,0 +1,57 @@
+{
+  "buttons": {
+    "create": "Oluştur",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "show": "Göster",
+    "list": "Liste",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "ok": "Tamam",
+    "loading": "Yükleniyor..."
+  },
+  "pages": {
+    "create": "{{resource}} Oluştur",
+    "edit": "{{resource}} Düzenle",
+    "show": "{{resource}} Göster",
+    "list": "{{resource}} Listesi"
+  },
+  "form": {
+    "required": "Bu alan zorunludur",
+    "invalid": "Geçersiz giriş",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "loading": "Kaydediliyor..."
+  },
+  "confirmDialog": {
+    "title": "Emin misiniz?",
+    "description": "Bu işlem geri alınamaz.",
+    "delete": {
+      "title": "{{resource}} Sil",
+      "description": "Bu {{resource}} öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+    },
+    "ok": "Evet, devam et",
+    "cancel": "İptal"
+  },
+  "notifications": {
+    "success": "Başarılı",
+    "error": "Hata",
+    "warning": "Uyarı",
+    "info": "Bilgi"
+  },
+  "table": {
+    "actions": "İşlemler",
+    "noData": "Veri bulunamadı",
+    "loading": "Yükleniyor...",
+    "search": "Ara...",
+    "filter": "Filtrele",
+    "sort": "Sırala",
+    "pagination": {
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "page": "Sayfa",
+      "of": "/",
+      "rows": "satır"
+    }
+  }
+}

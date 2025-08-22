@@ -1,6 +1,6 @@
 import { CreateButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useCreateButton } from "@refinedev/core";
+import { useCreateButton, useTranslation } from "@refinedev/core";
 import { SquarePlusIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -13,12 +13,15 @@ export const CreateButton: FC<CreateButtonProps> = ({
     children,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const { hidden, disabled, label, title, LinkComponent, to } =
         useCreateButton({
             resource,
             accessControl,
             meta,
         });
+
+    const translatedLabel = translate("buttons.create", "Create");
 
     if (hidden) return null;
     return (
@@ -39,10 +42,10 @@ export const CreateButton: FC<CreateButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<SquarePlusIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
-                {!hideText && (children ?? label)}
+                <SquarePlusIcon className="mr-2 size-4" />
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </LinkComponent>
     );

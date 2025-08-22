@@ -8,22 +8,28 @@ import {
     Select as SelectUI,
     SelectValue,
 } from "@/ui";
-import type {
-    Content as SelectContentType,
-    SelectProps as SelectCoreProps,
+// Import individual types to avoid internal type exposure
+import type { 
+    SelectProps as RadixSelectProps,
+    SelectValueProps,
 } from "@radix-ui/react-select";
 import { BaseOption } from "@refinedev/core";
 import React, { forwardRef } from "react";
 
-type SelectProps = SelectCoreProps & {
+export interface SelectProps {
     placeholder?: string;
     emptyMessage?: string;
     onChange?: (value: string) => void;
     options?: BaseOption[];
-};
+    disabled?: boolean;
+    value?: string;
+    defaultValue?: string;
+    name?: string;
+    required?: boolean;
+}
 
 export const Select = forwardRef<
-    React.ElementRef<typeof SelectContentType>,
+    HTMLDivElement,
     SelectProps
 >(({ ...props }, ref) => {
     const triggerRef = React.useRef<HTMLButtonElement>(null);

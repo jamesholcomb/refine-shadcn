@@ -139,7 +139,7 @@ export function Table<
         if (Array.isArray(children)) {
             return (children as ReactElement[])
                 .map((value: ReactElement) => value.props)
-                .map(mapColumn);
+                .map(mapColumn as any);
         }
 
         return [];
@@ -200,10 +200,10 @@ export function Table<
                                                             )}
                                                         {isFilterable &&
                                                             columnDef?.filter &&
-                                                            columnDef.filter({
+                                                            (columnDef.filter({
                                                                 column: header.column,
                                                                 title: `${columnDef.header} Filter`,
-                                                            })}
+                                                            }) as React.ReactNode)}
                                                     </div>
                                                 </TableHead>
                                             );

@@ -1,6 +1,7 @@
 import { ImportButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useImportButton, useCan } from "@refinedev/core";
+import { Slot } from "@radix-ui/react-slot";
+import { CanAccess, useImportButton } from "@refinedev/core";
 import { ImportIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -11,16 +12,12 @@ export const ImportButton: FC<ImportButtonProps> = ({
     accept = "image/*,application/*",
     recordItemId,
     accessControl,
+    access,
     children,
     ...props
 }) => {
     const { label } = useImportButton();
-    
-    const { data } = useCan({
-        resource,
-        action: "import",
-        params: { id: recordItemId },
-    });
+    const Com = !accessControl?.enabled ? Slot : CanAccess;
 
     const onClick = () => {
         const el = document.createElement("input");
@@ -35,18 +32,27 @@ export const ImportButton: FC<ImportButtonProps> = ({
         el.click();
     };
 
-    if (accessControl?.hideIfUnauthorized && !data?.can) {
+    if (accessControl?.hideIfUnauthorized && accessControl.enabled) {
         return null;
     }
 
     return (
-        <Button
-            onClick={onClick}
-            icon={<ImportIcon className="mr-2 w-4 h-4" />}
-            {...props}
+        <Com
+            params={{
+                id: recordItemId,
+            }}
+            resource={resource}
+            action="import"
+            {...access}
         >
-            {!hideText && (children ?? label)}
-        </Button>
+            <Button
+                onClick={onClick}
+                {...props}
+            >
+                <ImportIcon className="mr-2 size-4" />
+                {!hideText && (children ?? label)}
+            </Button>
+        </Com>
     );
 };
 

@@ -1,6 +1,6 @@
 import { ListButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useListButton } from "@refinedev/core";
+import { useListButton, useTranslation } from "@refinedev/core";
 import { ListIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -13,6 +13,7 @@ export const ListButton: FC<ListButtonProps> = ({
     onClick,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const { hidden, disabled, label, title, LinkComponent, to } = useListButton(
         {
             resource: resourceNameFromProps,
@@ -20,6 +21,8 @@ export const ListButton: FC<ListButtonProps> = ({
             meta,
         },
     );
+
+    const translatedLabel = translate("buttons.list", "List");
 
     if (hidden) return null;
 
@@ -41,10 +44,10 @@ export const ListButton: FC<ListButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<ListIcon className="mr-2 w-4 h-4" />}
                 {...props}
             >
-                {!hideText && (children ?? label)}
+                <ListIcon className="mr-2 size-4" />
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </LinkComponent>
     );

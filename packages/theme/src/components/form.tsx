@@ -1,24 +1,24 @@
 "use client";
 
-import type { SaveButtonProps } from "@/types";
 import { Button, Card, CardContent, CardFooter, Form as FormUI } from "@/ui";
 import {
     useBack,
     useNavigation,
     useParsed,
     useRouterType,
+    useTranslation,
     type BaseRecord,
     type HttpError,
 } from "@refinedev/core";
 import type { UseFormReturnType } from "@refinedev/react-hook-form";
 import {
-    FC,
+    useId,
     useRef,
     type DetailedHTMLProps,
     type FormHTMLAttributes,
-    type PropsWithChildren,
+    type PropsWithChildren
 } from "react";
-import { type FieldValues } from "react-hook-form";
+import { type FieldValues, type UseFormReturn } from "react-hook-form";
 import { SaveButton } from "../buttons";
 
 type NativeFormProps = Omit<
@@ -52,7 +52,7 @@ export type FormProps<
 export const Form = <
     TQueryFnData extends BaseRecord = BaseRecord,
     TError extends HttpError = HttpError,
-    TVariables extends FieldValues = FieldValues,
+    TFieldValues extends FieldValues = FieldValues,
     TContext extends object = {},
     TData extends BaseRecord = TQueryFnData,
     TResponse extends BaseRecord = TData,
@@ -65,13 +65,15 @@ export const Form = <
 }: FormProps<
     TQueryFnData,
     TError,
-    TVariables,
+    TFieldValues,
     TContext,
     TData,
     TResponse,
     TResponseError
 >) => {
+    const formId = useId();
     const watchable = useRef<boolean>(false);
+    const { translate } = useTranslation();
     const { resource: _resource, action } = useParsed();
     const routerType = useRouterType();
     const back = useBack();
@@ -89,13 +91,13 @@ export const Form = <
         props.watch();
     }
 
-    const onSubmit = props.handleSubmit((_data: TVariables) => {
+    const onSubmit = props.handleSubmit((_data: TFieldValues) => {
         props.refineCore.onFinish(props.getValues()).then();
     });
 
     return (
-        <FormUI {...props}>
-            <form {...formProps} onSubmit={onSubmit}>
+        <FormUI {...props as unknown as UseFormReturn<TFieldValues, TContext, TFieldValues>}>
+            <form {...formProps} onSubmit={onSubmit} id={formId}>
                 <Card className="border-border/40 shadow-sm">
                     <CardContent className="pt-6 space-y-4">
                         {props.children}
@@ -109,7 +111,7 @@ export const Form = <
                                 disabled={props.refineCore.formLoading}
                                 variant="outline"
                             >
-                                Cancel
+                                {translate("form.cancel", "Cancel")}
                             </Button>
                         )}
 

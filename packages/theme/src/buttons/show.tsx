@@ -1,6 +1,6 @@
 import { ShowButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useShowButton } from "@refinedev/core";
+import { useShowButton, useTranslation } from "@refinedev/core";
 import { EyeIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -14,6 +14,7 @@ export const ShowButton: FC<ShowButtonProps> = ({
     onClick,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const { to, label, title, hidden, disabled, LinkComponent } = useShowButton(
         {
             resource: resourceNameFromProps,
@@ -22,6 +23,8 @@ export const ShowButton: FC<ShowButtonProps> = ({
             meta,
         },
     );
+
+    const translatedLabel = translate("buttons.show", "Show");
 
     if (hidden) return null;
 
@@ -41,12 +44,11 @@ export const ShowButton: FC<ShowButtonProps> = ({
             }}
         >
             <Button
-                icon={<EyeIcon className="mr-2 w-4 h-4" />}
                 title={title}
                 disabled={disabled}
-                {...props}
-            >
-                {!hideText && (children ?? label)}
+                {...props}>
+                <EyeIcon className="mr-2 size-4" />
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </LinkComponent>
     );
