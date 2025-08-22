@@ -107,7 +107,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git pull origin main --rebase
+          git stash -u
+          git pull origin main
+          git stash pop || true
 
       - name: Download theme artifacts
         uses: actions/download-artifact@v4
