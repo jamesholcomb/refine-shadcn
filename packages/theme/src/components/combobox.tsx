@@ -1,13 +1,5 @@
 "use client";
 
-import {
-    CalendarIcon,
-    EnvelopeClosedIcon,
-    FaceIcon,
-    GearIcon,
-    PersonIcon,
-    RocketIcon,
-} from "@radix-ui/react-icons";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
@@ -19,20 +11,18 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-    CommandSeparator,
-    CommandShortcut,
     FormControl,
     Popover,
     PopoverContent,
     PopoverTrigger,
-    ScrollArea,
+    ScrollArea
 } from "@/ui";
 import { BaseOption, BaseRecord, UseSelectReturnType } from "@refinedev/core";
 import {
     ComponentPropsWithoutRef,
     forwardRef,
     useState,
-    type ElementRef,
+    type ComponentRef,
 } from "react";
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Command> &
@@ -44,7 +34,7 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Command> &
         disabled?: boolean;
     };
 
-export const Combobox = forwardRef<ElementRef<typeof Command>, ComboboxProps>(
+export const Combobox = forwardRef<ComponentRef<typeof Command>, ComboboxProps>(
     ({ ...props }, ref) => {
         const [open, setOpen] = useState(false);
 

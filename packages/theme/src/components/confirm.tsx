@@ -11,19 +11,16 @@ import {
     AlertDialogTrigger,
 } from "@/ui/alert-dialog";
 import { LoadingIcon } from "@/ui/loading";
+import { useTranslation } from "@refinedev/core";
 import { CheckIcon, XIcon } from "lucide-react";
 import { FC, isValidElement, useMemo } from "react";
 
 export const ConfirmDialog: FC<ConfirmDialogProps> = ({
     children,
-    title = "Are you sure?",
-    description = "This action cannot be undone.",
-    okText = "Ok",
-    cancelText = "Cancel",
-    okButtonSize = "default",
-    cancelButtonSize = "default",
-    okButtonVariant = "default",
-    cancelButtonVariant = "outline",
+    title,
+    description,
+    okText,
+    cancelText,
     loading = false,
     okIconSide = "left",
     cancelIconSide = "left",
@@ -34,6 +31,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
     onOpenChange,
     defaultOpen,
 }) => {
+    const { translate } = useTranslation();
     const CancelIcon = useMemo(() => {
         if (isValidElement(cancelIcon)) {
             return cancelIcon;
@@ -62,29 +60,27 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
             <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>{title}</AlertDialogTitle>
+                    <AlertDialogTitle>
+                        {title ?? translate("confirmDialog.title", "Are you sure?")}
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
-                        {description}
+                        {description ?? translate("confirmDialog.description", "This action cannot be undone.")}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
-                        variant={cancelButtonVariant}
-                        size={cancelButtonSize}
                         disabled={loading}
                     >
                         {cancelIconSide === "left" && CancelIcon}
-                        {cancelText}
+                        {cancelText ?? translate("confirmDialog.cancel", "Cancel")}
                         {cancelIconSide === "right" && CancelIcon}
                     </AlertDialogCancel>
                     <AlertDialogAction
-                        variant={okButtonVariant}
-                        size={okButtonSize}
                         disabled={loading}
                         onClick={onConfirm}
                     >
                         {okIconSide === "left" && OkIcon}
-                        {okText}
+                        {okText ?? translate("confirmDialog.ok", "OK")}
                         {okIconSide === "right" && OkIcon}
                     </AlertDialogAction>
                 </AlertDialogFooter>

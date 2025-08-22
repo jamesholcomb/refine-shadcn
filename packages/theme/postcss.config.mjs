@@ -1,8 +1,7 @@
-module.exports = {
-    plugins: [
-        require("tailwindcss"),
-        require("autoprefixer"),
-        require("cssnano")({
+export default {
+    plugins: {
+        "@tailwindcss/postcss": {},
+        cssnano: {
             preset: [
                 "default",
                 {
@@ -11,6 +10,6 @@ module.exports = {
                     },
                 },
             ],
-        }),
-    ],
+        },
+    },
 };

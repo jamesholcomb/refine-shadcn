@@ -1,6 +1,6 @@
 import { DeleteButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useDeleteButton } from "@refinedev/core";
+import { useDeleteButton, useTranslation } from "@refinedev/core";
 import { Trash2Icon } from "lucide-react";
 import type { FC } from "react";
 import { ConfirmDialog } from "@/components";
@@ -24,6 +24,7 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
     children,
     ...props
 }) => {
+    const { translate } = useTranslation();
     const {
         title,
         label,
@@ -34,6 +35,7 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
         confirmOkLabel: defaultConfirmOkLabel,
         cancelLabel: defaultCancelLabel,
         onConfirm,
+        canAccess,
     } = useDeleteButton({
         resource,
         id: recordItemId,
@@ -47,16 +49,22 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
         accessControl,
     });
 
-    if (hidden) return null;
+    const translatedLabel = translate("buttons.delete", "Delete");
+    const translatedConfirmTitle = translate("confirmDialog.delete.title", "Delete item");
+    const translatedConfirmDescription = translate("confirmDialog.delete.description", "Are you sure you want to delete this item?");
+    const translatedOkText = translate("confirmDialog.ok", "Yes, proceed");
+    const translatedCancelText = translate("confirmDialog.cancel", "Cancel");
+
+    if (hidden || !canAccess?.can) return null;
 
     return (
         <ConfirmDialog
-            okText={confirmOkText ?? defaultConfirmOkLabel}
-            cancelText={confirmCancelText ?? defaultCancelLabel}
+            okText={confirmOkText ?? defaultConfirmOkLabel ?? translatedOkText}
+            cancelText={confirmCancelText ?? defaultCancelLabel ?? translatedCancelText}
             okButtonVariant={"destructive"}
             cancelButtonVariant={"outline"}
-            title={confirmTitle ?? defaultConfirmTitle}
-            description={confirmDescription}
+            title={confirmTitle ?? defaultConfirmTitle ?? translatedConfirmTitle}
+            description={confirmDescription ?? translatedConfirmDescription}
             loading={loading}
             onConfirm={onConfirm}
         >
@@ -64,10 +72,10 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
                 disabled={disabled}
                 title={title}
                 loading={loading}
-                icon={<Trash2Icon className="mr-2 w-4 h-4" />}
                 {...props}
             >
-                {!hideText && (children ?? label)}
+               <Trash2Icon className="mr-2 size-4" />
+                {!hideText && (children ?? label ?? translatedLabel)}
             </Button>
         </ConfirmDialog>
     );

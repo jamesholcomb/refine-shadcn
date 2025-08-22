@@ -42,9 +42,9 @@ export const CloneButton: FC<CloneButtonProps> = ({
             <Button
                 disabled={disabled}
                 title={title}
-                icon={<CopyPlus className="mr-2 w-4 h-4" />}
                 {...props}
             >
+                <CopyPlus className="mr-2 size-4" />
                 {!hideText && (children ?? label)}
             </Button>
         </LinkComponent>

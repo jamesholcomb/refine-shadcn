@@ -1,7 +1,7 @@
 import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
-import { VariantProps } from 'class-variance-authority';
 import * as React$1 from 'react';
-import React__default, { ReactElement, ComponentProps, ReactNode, PropsWithChildren, FC, DetailedHTMLProps, FormHTMLAttributes } from 'react';
+import React__default, { ReactElement as ReactElement$1, ComponentProps, ReactNode, PropsWithChildren, FC, DetailedHTMLProps, FormHTMLAttributes } from 'react';
+import { VariantProps } from 'class-variance-authority';
 import { CanAccess, UseSelectReturnType, BaseOption, BaseRecord, HttpError, NotificationProvider } from '@refinedev/core';
 import { RefineCloneButtonProps, RefineCreateButtonProps, RefineDeleteButtonProps, RefineEditButtonProps, RefineExportButtonProps, RefineButtonResourceProps, RefineButtonSingleProps, RefineListButtonProps, RefineRefreshButtonProps, RefineSaveButtonProps, RefineShowButtonProps, RefineCrudCreateProps, RefineCrudEditProps, RefineCrudListProps, RefineCrudShowProps, RefineBreadcrumbProps } from '@refinedev/ui-types';
 import { AlertDialogProps } from '@radix-ui/react-alert-dialog';
@@ -9,7 +9,6 @@ import { DeleteButtonValues } from '@refinedev/core/dist/hooks/button/delete-but
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { FieldValues, FieldPath, UseControllerProps, ControllerRenderProps } from 'react-hook-form';
 import { UseFormReturnType } from '@refinedev/react-hook-form';
-import { SelectProps } from '@radix-ui/react-select';
 import { ThemeProviderProps } from 'next-themes/dist/types';
 import * as _radix_ui_react_checkbox from '@radix-ui/react-checkbox';
 import { PopoverContentProps } from '@radix-ui/react-popover';
@@ -17,27 +16,26 @@ import { UseTableReturnType, UseTableProps } from '@refinedev/react-table';
 import { Column, ColumnDefTemplate, CellContext } from '@tanstack/react-table';
 
 declare const buttonVariants: (props?: ({
-    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
-interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends React$1.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
     loading?: boolean;
-    icon?: React$1.ReactElement<SVGSVGElement>;
 }
 
 type ConfirmDialogProps = AlertDialogProps & {
     title?: string;
     description?: string;
-    okIcon?: ReactElement<SVGSVGElement>;
+    okIcon?: ReactElement$1<SVGSVGElement>;
     okIconSide?: "left" | "right";
     cancelIconSide?: "left" | "right";
-    cancelIcon?: ReactElement<SVGSVGElement>;
+    cancelIcon?: ReactElement$1<SVGSVGElement>;
     okText?: string;
     cancelText?: string;
     loading?: boolean;
     onConfirm: DeleteButtonValues["onConfirm"];
-    children?: ReactElement<SVGSVGElement>;
+    children?: ReactElement$1<SVGSVGElement>;
     okButtonVariant?: VariantProps<typeof buttonVariants>["variant"];
     cancelButtonVariant?: VariantProps<typeof buttonVariants>["variant"];
     okButtonSize?: VariantProps<typeof buttonVariants>["size"];
@@ -184,24 +182,40 @@ type ShowProps = RefineCrudShowProps<
 declare function ThemeProvider({ children, ...props }: ThemeProviderProps): react_jsx_runtime.JSX.Element;
 
 type LogoType =
-    | ReactElement<React.ComponentProps<"img">>
+    | ReactElement$1<React.ComponentProps<"img">>
     | ReactNode<React.ComponentProps<"img">>;
 type LayoutProps = PropsWithChildren<
     {
         defaultLayout: number[] | undefined;
         defaultCollapsed?: boolean;
-        footer?: ReactElement | ReactNode;
+        footer?: ReactElement$1 | ReactNode;
         logo?: {
             collapsed?: LogoType;
             default: LogoType;
         };
         navCollapsedSize: number;
         navbar?: {
-            leftSide?: ReactElement | ReactNode;
-            rightSide?: ReactElement | ReactNode;
+            leftSide?: ReactElement$1 | ReactNode;
+            rightSide?: ReactElement$1 | ReactNode;
         };
     } & React.ComponentProps<typeof ThemeProvider>
 >;
+
+// React 19 compatibility fixes for Radix UI
+declare global {
+    namespace React {
+        // Override ReactNode to exclude bigint for Radix UI compatibility
+        type ReactNode = 
+            | ReactElement
+            | string
+            | number
+            | ReactFragment
+            | ReactPortal
+            | boolean
+            | null
+            | undefined;
+    }
+}
 
 declare const CloneButton: FC<CloneButtonProps>;
 
@@ -226,13 +240,13 @@ declare const ShowButton: FC<ShowButtonProps>;
 type BreadcrumbProps = RefineBreadcrumbProps;
 declare const Breadcrumbs: FC<BreadcrumbProps>;
 
-declare const Combobox: React$1.ForwardRefExoticComponent<Omit<Omit<{
+declare const Combobox: React$1.ForwardRefExoticComponent<Omit<{
     children?: React.ReactNode;
 } & Pick<Pick<React$1.DetailedHTMLProps<React$1.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React$1.HTMLAttributes<HTMLDivElement>> & {
     ref?: React.Ref<HTMLDivElement>;
 } & {
     asChild?: boolean;
-}, "key" | "asChild" | keyof React$1.HTMLAttributes<HTMLDivElement>> & {
+}, "asChild" | "key" | keyof React$1.HTMLAttributes<HTMLDivElement>> & {
     label?: string;
     shouldFilter?: boolean;
     filter?: (value: string, search: string, keywords?: string[]) => number;
@@ -242,7 +256,7 @@ declare const Combobox: React$1.ForwardRefExoticComponent<Omit<Omit<{
     loop?: boolean;
     disablePointerSelection?: boolean;
     vimBindings?: boolean;
-} & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>, "ref"> & Pick<UseSelectReturnType<BaseOption, any>, "options"> & {
+} & React$1.RefAttributes<HTMLDivElement>, "ref"> & Pick<UseSelectReturnType<BaseOption, any>, "options"> & {
     placeholder?: string;
     emptyMessage?: string;
     onChange?: (value: string | number) => void;
@@ -257,7 +271,7 @@ type FieldProps<TFieldValues extends FieldValues = FieldValues, TName extends Fi
     description?: string;
     className?: string;
     isCheckbox?: boolean;
-    children: ReactElement<{
+    children: ReactElement$1<{
         field: ControllerRenderProps<TFieldValues, TName>;
     }>;
 };
@@ -279,12 +293,18 @@ declare const ModeToggle: () => react_jsx_runtime.JSX.Element;
 
 declare const PageHeader: FC<PageHeaderProps>;
 
-declare const Select: React__default.ForwardRefExoticComponent<SelectProps & {
+interface SelectProps {
     placeholder?: string;
     emptyMessage?: string;
     onChange?: (value: string) => void;
     options?: BaseOption[];
-} & React__default.RefAttributes<HTMLDivElement>>;
+    disabled?: boolean;
+    value?: string;
+    defaultValue?: string;
+    name?: string;
+    required?: boolean;
+}
+declare const Select: React__default.ForwardRefExoticComponent<SelectProps & React__default.RefAttributes<HTMLDivElement>>;
 
 type NavProps = {
     isCollapsed: boolean;
@@ -409,17 +429,17 @@ type ColumnProps<TData extends BaseRecord = BaseRecord, TValue = unknown, TError
         table: UseTableReturnType<TData, TError>;
     }>;
     cell?: ColumnDefTemplate<CellContext<TData, TValue>>;
-    children?: ReactElement;
+    children?: ReactElement$1;
     filter?: FC<TableFilterProps<TData>>;
 };
 type TableProps<TData extends BaseRecord = BaseRecord, TError extends HttpError = HttpError> = Partial<UseTableProps<TData, TError, TData>> & {
-    children?: ReactElement<ColumnProps<TData, TError>>[];
+    children?: ReactElement$1<ColumnProps<TData, TError>>[];
     showHeader?: boolean;
 };
 declare function Table<TQueryFnData extends BaseRecord = BaseRecord, TData extends BaseRecord = TQueryFnData, TError extends HttpError = HttpError>({ children, showHeader, columns, ...props }: TableProps<TData, TError>): react_jsx_runtime.JSX.Element;
 declare namespace Table {
-    var Column: <TData extends BaseRecord = BaseRecord, TError extends HttpError = HttpError>(props: ColumnProps<TData, TError>) => React__default.ReactElement<any, string | React__default.JSXElementConstructor<any>> | undefined;
-    var CheckAll: React__default.FC<Omit<Omit<_radix_ui_react_checkbox.CheckboxProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & React__default.RefAttributes<HTMLButtonElement>, "ref"> & {
+    var Column: <TData extends BaseRecord = BaseRecord, TError extends HttpError = HttpError>(props: ColumnProps<TData, TError>) => React__default.ReactElement<unknown, string | React__default.JSXElementConstructor<any>> | undefined;
+    var CheckAll: React__default.FC<Omit<_radix_ui_react_checkbox.CheckboxProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & {
         table: UseTableReturnType<BaseRecord, HttpError>;
         options?: {
             label: string;
@@ -441,4 +461,4 @@ declare namespace Table {
     var displayName: string;
 }
 
-export { BaseLayout, type BreadcrumbProps, Breadcrumbs, CloneButton, type ColumnProps, Combobox, ConfirmDialog, CreateButton, CreatePage, DefaultLayout, DeleteActionModal, DeleteButton, DeleteContext, type DeleteContextType, DeleteProvider, EditButton, EditPage, ExportButton, Field, type FieldProps, Form, type FormProps, ImportButton, Link, ListButton, ListPage, ModeToggle, PageHeader, RefreshButton, SaveButton, Select, ShowButton, ShowPage, Sidebar, Table, type TableFilterProps, type TableListFilterOption, type TableProps, notificationProvider, useNotificationProvider };
+export { BaseLayout, type BreadcrumbProps, Breadcrumbs, CloneButton, type ColumnProps, Combobox, ConfirmDialog, CreateButton, CreatePage, DefaultLayout, DeleteActionModal, DeleteButton, DeleteContext, type DeleteContextType, DeleteProvider, EditButton, EditPage, ExportButton, Field, type FieldProps, Form, type FormProps, ImportButton, Link, ListButton, ListPage, ModeToggle, PageHeader, RefreshButton, SaveButton, Select, type SelectProps, ShowButton, ShowPage, Sidebar, Table, type TableFilterProps, type TableListFilterOption, type TableProps, notificationProvider, useNotificationProvider };
