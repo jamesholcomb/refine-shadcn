@@ -34,7 +34,6 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
         confirmOkLabel: defaultConfirmOkLabel,
         cancelLabel: defaultCancelLabel,
         onConfirm,
-        canAccess,
     } = useDeleteButton({
         resource,
         id: recordItemId,
@@ -48,7 +47,7 @@ export const DeleteButton: FC<DeleteButtonProps> = ({
         accessControl,
     });
 
-    if (hidden || !canAccess?.can) return null;
+    if (hidden) return null;
 
     return (
         <ConfirmDialog
