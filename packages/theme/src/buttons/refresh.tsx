@@ -1,6 +1,6 @@
 import { RefreshButtonProps } from "@/types";
 import { Button } from "@/ui/button";
-import { useRefreshButton } from "@refinedev/core";
+import { useRefreshButton, useCan } from "@refinedev/core";
 import { RefreshCwIcon } from "lucide-react";
 import type { FC } from "react";
 
@@ -9,6 +9,7 @@ export const RefreshButton: FC<RefreshButtonProps> = ({
     recordItemId,
     hideText = false,
     dataProviderName,
+    accessControl,
     children,
     ...props
 }) => {
@@ -17,6 +18,16 @@ export const RefreshButton: FC<RefreshButtonProps> = ({
         id: recordItemId,
         dataProviderName,
     });
+
+    const { data } = useCan({
+        resource,
+        action: "refresh",
+        params: { id: recordItemId },
+    });
+
+    if (accessControl?.hideIfUnauthorized && !data?.can) {
+        return null;
+    }
 
     return (
         <Button
