@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/ferdiunal/refine-shadcn/compare/v1.5.1...v1.6.0) (2025-08-22)
+
+
+### Features
+
+* **auth:** add new authentication features ([70ea44f](https://github.com/ferdiunal/refine-shadcn/commit/70ea44fdca52ad8b6661803ea2fd58a18ff20050))
+* **auth:** implement new authentication features ([836237d](https://github.com/ferdiunal/refine-shadcn/commit/836237d94e6eaf9c623ee01059fdc6cc739463be))
+
 ## [1.5.1](https://github.com/ferdiunal/refine-shadcn/compare/v1.5.0...v1.5.1) (2025-08-22)
 
 
