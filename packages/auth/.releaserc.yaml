@@ -1,5 +1,6 @@
 branches:
     - main
+tagFormat: 'auth-v${version}'
 debug: false
 ci: true
 plugins:
@@ -11,6 +12,7 @@ plugins:
           - { scope: 'auth', type: 'feat', release: 'minor' }
           - { scope: 'auth', type: 'fix', release: 'patch' }
           - { scope: 'auth', type: 'perf', release: 'patch' }
+          - { scope: 'auth', type: 'chore', release: 'patch' }
           - { scope: 'auth', type: 'refactor', release: 'patch' }
     - '@semantic-release/release-notes-generator'
     - '@semantic-release/changelog'
