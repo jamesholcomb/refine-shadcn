@@ -22,7 +22,7 @@ import {
     ComponentPropsWithoutRef,
     forwardRef,
     useState,
-    type ElementRef,
+    type ComponentRef,
 } from "react";
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Command> &
@@ -34,7 +34,7 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Command> &
         disabled?: boolean;
     };
 
-export const Combobox = forwardRef<ElementRef<typeof Command>, ComboboxProps>(
+export const Combobox = forwardRef<ComponentRef<typeof Command>, ComboboxProps>(
     ({ ...props }, ref) => {
         const [open, setOpen] = useState(false);
 
