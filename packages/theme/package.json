@@ -8,7 +8,14 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsup --watch",
-    "build": "git clean -xdf dist && tsup"
+    "build": "git clean -xdf dist && tsup",
+    "build:dev": "NODE_ENV=development tsup",
+    "build:analyze": "ANALYZE=true tsup",
+    "build:clean": "git clean -xdf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo 'Add linting command if needed'",
+    "test": "echo 'Add test command if needed'",
+    "size": "npm run build && bundlesize"
   },
   "files": [
     "dist",
@@ -34,6 +41,7 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@refinedev/react-hook-form": "^4.10.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
