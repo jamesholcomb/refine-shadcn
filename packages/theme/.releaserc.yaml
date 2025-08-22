@@ -6,12 +6,16 @@ plugins:
     - '@semantic-release/commit-analyzer'
     - '@semantic-release/release-notes-generator'
     - '@semantic-release/changelog'
+    - - '@semantic-release/exec'
+      - prepareCmd: 'node -p "JSON.stringify({...require(\"./package.json\"), version: \"${nextRelease.version}\"}, null, 2)" > package.json'
     - - '@semantic-release/npm'
       - npmPublish: true
+        tarballDir: dist
     - - '@semantic-release/git'
       - assets:
             - dist/**/*.{js,css,ts}
             - package.json
+            - CHANGELOG.md
             - LICENSE
             - README.md
         message: |-
@@ -19,5 +23,3 @@ plugins:
             ${nextRelease.notes}
     - - '@semantic-release/github'
       - addReleases: top
-    - - '@semantic-release/exec'
-      - publishCmd: npx rimraf dist
