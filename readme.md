@@ -1,6 +1,6 @@
-# refine-shadcn
+# Refine ShadCN Theme
 
-This package is a theme integration for [refine.dev](https://refine.dev) built using [ui.shadcn](ui.shadcn.com).
+A modern, type-safe React UI theme package for [refine.dev](https://refine.dev) built using [ui.shadcn](ui.shadcn.com) with **Tailwind CSS v4** and **React 19** support.
 
 ## [WIKI](https://deepwiki.com/ferdiunal/refine-shadcn)
 
@@ -24,7 +24,16 @@ yarn add @ferdiunal/refine-shadcn
 
 ```
 
-## Useage
+## Features
+
+- 🎨 **Tailwind CSS v4** - Latest CSS-first configuration with OKLCH color system
+- 🔧 **TypeScript** - Full type safety with React 19 support
+- ⚡ **Modern Stack** - React 19, ShadCN/UI, Radix UI primitives
+- 🎯 **Refine Integration** - Built specifically for Refine applications
+- 🧩 **Flexible Components** - Customizable and accessible UI components
+- 📦 **Tree-shakeable** - Only bundle what you use
+
+## Usage
 
 **For Vite**
 
@@ -33,6 +42,123 @@ yarn add @ferdiunal/refine-shadcn
 **For NexJs**
 
 [You can use the layout structure prepared for Next.js from this link](templates/nextjs/app/app-layout.tsx)
+
+### FormField Component
+
+The `FormField` component provides a flexible, type-safe way to create form inputs with react-hook-form integration. It automatically handles labels, descriptions, validation messages, and form control binding.
+
+<details>
+  <summary>FormField Usage Example</summary>
+
+```tsx
+import { FormField } from "@ferdiunal/refine-shadcn";
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ferdiunal/refine-shadcn/ui";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// Define your form schema
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  role: z.string().min(1, "Please select a role"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+function MyForm() {
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      role: "",
+    },
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Text Input Field */}
+      <FormField
+        control={control}
+        name="name"
+        label="Full Name"
+        description="Enter your full name as it appears on official documents"
+        className="space-y-2"
+      >
+        {(field) => (
+          <Input
+            placeholder="John Doe"
+            {...field}
+          />
+        )}
+      </FormField>
+
+      {/* Email Input Field */}
+      <FormField
+        control={control}
+        name="email"
+        label="Email Address"
+        description="We'll use this email for important notifications"
+      >
+        {(field) => (
+          <Input
+            type="email"
+            placeholder="john@example.com"
+            {...field}
+          />
+        )}
+      </FormField>
+
+      {/* Select Field */}
+      <FormField
+        control={control}
+        name="role"
+        label="User Role"
+        description="Select the appropriate role for this user"
+      >
+        {(field) => (
+          <Select onValueChange={field.onChange} value={field.value}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a role..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="admin">Administrator</SelectItem>
+              <SelectItem value="user">User</SelectItem>
+              <SelectItem value="guest">Guest</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+      </FormField>
+
+      <button type="submit" className="w-full">
+        Submit Form
+      </button>
+    </form>
+  );
+}
+```
+</details>
+
+#### FormField Props
+
+```tsx
+type FormFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = {
+  control: Control<TFieldValues>; // react-hook-form control object
+  name: TName; // Field name (type-safe)
+  label: string; // Field label
+  children: (field: ControllerRenderProps<TFieldValues, TName>) => React.ReactNode; // Render function for input
+  description?: string; // Optional helper text
+  className?: string; // CSS class for the form item container
+};
+```
 
 ### List Page
 
